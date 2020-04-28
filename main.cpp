@@ -1,13 +1,18 @@
 #include <iostream>
 #include <GL/glew.h>
+#ifdef __linux__
+#include <SDL2/SDL.h>
+#endif
+#ifdef _WIN32
 #include <SDL.h>
+#endif
 
 const int WINDOW_WIDTH = 840;
 const int WINDOW_HEIGHT = 480;
 
 bool initializeSDL() {
     // initialize SDL and subsystems (IMG / Audio / etc)
-    return SDL_Init(SDL_INIT_EVERYTHING) < 0;
+    return SDL_Init(SDL_INIT_EVERYTHING) == 0;
 }
 
 SDL_Window *initializeWindow(const std::string& windowName) {
@@ -37,7 +42,8 @@ SDL_GLContext initializeGL(SDL_Window* window) {
 
     GLenum  err = glewInit();
     if (GLEW_OK != err) {
-        fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+        std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
+        exit(1);
     }
 
     SDL_GL_SetSwapInterval(1);
@@ -53,7 +59,8 @@ void quitSDL() {
 int main(int argc, char *argv[])
 {
     if (!initializeSDL()) {
-        std::cout << "Failed to initialize SDL. 9" << SDL_GetError() << std::endl;
+        std::cerr << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
+        exit(1);
     }
     SDL_Window *window = nullptr;
     SDL_GLContext context;
