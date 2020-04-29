@@ -17,11 +17,26 @@ endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-file(GLOB SOURCES src/*.cpp)
-
+file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 add_executable(graficasOpengl main.cpp ${SOURCES})
 target_link_libraries(graficasOpengl ${SDL2_LIBRARY})
+
+if (WIN32)
+    file(GLOB DLLS ${PROJECT_SOURCE_DIR}/dlls/*.dll)
+    foreach(filename ${DLLS})
+        get_filename_component( Filename ${filename} NAME)
+        message(STATUS "${Filename}-${filename}")
+        configure_file(${filename} ${CMAKE_CURRENT_BINARY_DIR}/${Filename} COPYONLY)
+    endforeach()
+
+    file(GLOB SHADERS ${PROJECT_SOURCE_DIR}/shaders/*.glsl)
+    foreach(filename ${SHADERS})
+        get_filename_component( Filename ${filename} NAME)
+        message(STATUS "${Filename}-${filename}")
+        configure_file(${filename} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${Filename} COPYONLY)
+    endforeach()
+endif ()
 
 if(WIN32)
     target_link_libraries(graficasOpengl ${PROJECT_SOURCE_DIR}/glew-2.1.0/lib/Release/x64/glew32.lib ${PROJECT_SOURCE_DIR}/glew-2.1.0/lib/Release/x64/glew32.lib Opengl32.lib)
