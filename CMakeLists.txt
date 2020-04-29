@@ -15,7 +15,12 @@ else()
     include_directories(${GLEW_INCLUDE_DIRS})
 endif()
 
-add_executable(graficasOpengl main.cpp)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+file(GLOB SOURCES src/*.cpp)
+
+
+add_executable(graficasOpengl main.cpp ${SOURCES})
 target_link_libraries(graficasOpengl ${SDL2_LIBRARY})
 
 if(WIN32)
