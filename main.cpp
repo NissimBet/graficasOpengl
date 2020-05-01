@@ -231,6 +231,12 @@ int main(int argc, char *argv[])
                     case SDL_SCANCODE_S:
                         mainCamera.handleEvent( Camera::Camera_Movement::BACKWARD, true );
                         break;
+                    case SDL_SCANCODE_R:
+                        modelMatrix = glm::scale(modelMatrix, glm::vec3(1.05));
+                        break;
+                    case SDL_SCANCODE_F:
+                        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.95));
+                        break;
                 }
 
             }
@@ -268,6 +274,8 @@ int main(int argc, char *argv[])
 
         mainCamera.moveCamera(deltaTime);
         glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
+
+        glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
         // 1st attribute buffer : vertices
         glEnableVertexAttribArray(0);
