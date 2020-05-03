@@ -12,14 +12,19 @@
 
 // initial camera values
 const float YAW = -90.0f;
+// initial
 const float PITCH = 0.0f;
+// movement speed of the camera
 const float SPEED = 3.0f;
+// mouse sensitivity
 const float SENSITIVITY = 0.1f;
+// fov
 const float ZOOM = 45.0f;
 
 class Camera
 {
 public:
+    // check for multiple keys pressed at once
     enum ContinuedCheckKeys
     {
         KEY_UP = 0,		// Forward
@@ -56,31 +61,53 @@ public:
     float zoom;
 
     // vector constructor
-    Camera( glm::vec3 cameraPosition = glm::vec3( 0.0f, 0.0f, 0.0f ),
+    explicit Camera(
+            glm::vec3 cameraPosition = glm::vec3( 0.0f, 0.0f, 0.0f ),
             glm::vec3 cameraUp = glm::vec3( 0.0f, 1.0f, 0.0f ),
-            float yaw = YAW, float pitch = PITCH );
-    // scalar constructor
-    Camera( float, float, float, float, float, float,
-            float yaw = YAW, float pitch = YAW );
+            glm::vec3 cameraFront = glm::vec3( 0.0f, 0.0f, -1.0f ),
+            float yaw = YAW, float pitch = PITCH, float zoom = ZOOM,
+            float moveSpeed = SPEED, float sensitivity = SENSITIVITY)
+            :   cameraPosition(cameraPosition), cameraUp(cameraUp),
+                cameraFront(cameraFront), yaw(yaw),
+                pitch(pitch), zoom(zoom), movementSpeed(moveSpeed),
+                mouseSensitivity(sensitivity), worldUp(cameraUp)
+    {
+        resetConstantKeys();
+        updateCameraVectors();
+    };
 
-    glm::mat4 getViewMatrix() { return glm::lookAt( cameraPosition, cameraPosition + cameraFront, cameraUp ); }
+    /**
+     * function that gets the view matrix of the camera
+     * @return
+     */
+    glm::mat4 getViewMatrix() const {
+        return glm::lookAt( cameraPosition, cameraPosition + cameraFront, cameraUp );
+    }
 
-    /* Event Interface functions */
-    void handleEvent( Camera_Movement, bool wasEventKeyDown );
+    /**
+     * function that handles keypress for camera movement in any of 4 directions
+     * @param movementDirection direction of the movement (front, back, left, right)
+     * @param wasEventKeyDown whether the key is being pressed or released
+     */
+    void handleEvent( Camera_Movement movementDirection, bool wasEventKeyDown );
+    /**
+     * function that handles mouse movement to rotate camera
+     * @param deltaX mouse change in x direction
+     * @param deltaY mouse change in y direction
+     */
     void handleEvent( Sint32 deltaX, Sint32 deltaY );
 
-    // move camera with deltatime
-    void moveCamera( float );
+    // move camera after event handling
+    void moveCamera( float deltaTime );
 private:
     // update front, up and right vectors
     void updateCameraVectors();
 
     // reset keys
     void resetConstantKeys();
+
     // keys that need to be checked for constant input
     bool keys[TOTAL_KEYS];
 };
-
-
 
 #endif //GRAFICASOPENGL_CAMERA_H
