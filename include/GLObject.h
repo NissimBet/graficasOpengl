@@ -32,7 +32,7 @@ public:
      * @returns if the colors could be set
      */
     bool setColors(const std::vector<GLfloat> &newColors) {
-        if (newColors.size() / this->POINTS_PER_COLOR == this->vertices.size() / this->POINTS_PER_VERTEX) {
+        if (newColors.size() / this->POINTS_PER_COLOR == GLObject::vertices.size() / this->POINTS_PER_VERTEX) {
             this->colors = newColors;
             return true;
         } else {
@@ -46,8 +46,9 @@ protected:
     // colors VBO identifier
     GLuint colorsVBO;
 
-    // vertices data
+    // vertices data, static because the object's vertices shouldn't change, every object uses transformation matrices
     std::vector<GLfloat> vertices;
+
     // colors data
     std::vector<GLfloat> colors;
 
@@ -62,6 +63,5 @@ protected:
     const GLuint TEXTURE_ATTRIB = 2;
     const GLuint NORMAL_ATTRIB = 3;
 };
-
 
 #endif //GRAFICASOPENGL_GLOBJECT_H

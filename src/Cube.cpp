@@ -4,7 +4,7 @@
 
 #include "Cube.h"
 
-Cube::Cube() : GLObject(3, 3) {
+Cube::Cube() : GLObject(3, 3)   {
     this->colors = std::vector<GLfloat>();
     this->initVertices();
 
@@ -13,7 +13,7 @@ Cube::Cube() : GLObject(3, 3) {
 
     glGenBuffers(1, &this->verticesVBO);
     glGenBuffers(1, &this->colorsVBO);
-};
+}
 
 Cube::~Cube() {
     glDeleteBuffers(GL_ARRAY_BUFFER, &(this->verticesVBO));

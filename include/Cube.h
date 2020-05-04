@@ -22,5 +22,4 @@ private:
     void initVertices();
 };
 
-
 #endif //GRAFICASOPENGL_CUBE_H

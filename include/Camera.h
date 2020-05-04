@@ -85,6 +85,12 @@ public:
     }
 
     /**
+     * main event handler, calls the corresponding specific event handler
+     * @param event objetct with event data
+     */
+    void handleEvent(const SDL_Event &event);
+
+    /**
      * function that handles keypress for camera movement in any of 4 directions
      * @param movementDirection direction of the movement (front, back, left, right)
      * @param wasEventKeyDown whether the key is being pressed or released
