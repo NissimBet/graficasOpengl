@@ -8,8 +8,6 @@
 #include "Cube.h"
 #include "WorldObject.h"
 
-#include <SDL_events.h>
-
 class TreeTrunk : public Cube, public WorldObject {
 public:
     TreeTrunk() : Cube(), WorldObject() {
@@ -22,7 +20,7 @@ public:
         this->setColors(trunkColors);
     }
 
-    void handleEvent(const SDL_Event &event) override;
+//    void handleEvent(const SDL_Event &event) override;
 };
 
 

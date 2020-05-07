@@ -8,7 +8,6 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <SDL_events.h>
 
 // initial camera values
 const float YAW = -90.0f;
@@ -88,7 +87,7 @@ public:
      * main event handler, calls the corresponding specific event handler
      * @param event objetct with event data
      */
-    void handleEvent(const SDL_Event &event);
+//    void handleEvent(const SDL_Event &event);
 
     /**
      * function that handles keypress for camera movement in any of 4 directions
@@ -101,7 +100,7 @@ public:
      * @param deltaX mouse change in x direction
      * @param deltaY mouse change in y direction
      */
-    void handleEvent( Sint32 deltaX, Sint32 deltaY );
+//    void handleEvent( Sint32 deltaX, Sint32 deltaY );
 
     // move camera after event handling
     void moveCamera( float deltaTime );

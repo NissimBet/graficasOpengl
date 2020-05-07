@@ -5,7 +5,7 @@
 #ifndef GRAFICASOPENGL_GLOBJECT_H
 #define GRAFICASOPENGL_GLOBJECT_H
 
-#include <GL/glew.h>
+#include <GL/freeglut.h>
 #include <vector>
 
 class GLObject {

@@ -7,7 +7,6 @@
 
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
-#include <SDL_events.h>
 
 class WorldObject {
 protected:
@@ -34,7 +33,7 @@ public:
         return this->modelMatrix;
     }
 
-    virtual void handleEvent(const SDL_Event &event) = 0;
+//    virtual void handleEvent(const SDL_Event &event) = 0;
 };
 
 
