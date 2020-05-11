@@ -8,7 +8,7 @@
 #include "Cube.h"
 #include "WorldObject.h"
 
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 
 class TreeTrunk : public Cube, public WorldObject {
 public:

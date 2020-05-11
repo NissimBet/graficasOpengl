@@ -7,7 +7,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 
 class WorldObject {
 protected:

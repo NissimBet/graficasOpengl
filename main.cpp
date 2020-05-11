@@ -4,8 +4,10 @@
 #include <SDL2/SDL.h>
 #endif
 #ifdef _MSC_VER
-#include <SDL.h>
+#include <SDL2/SDL.h>
+//#include <SDL.h>
 #endif
+
 
 #include "Shader.h"
 #include <vector>

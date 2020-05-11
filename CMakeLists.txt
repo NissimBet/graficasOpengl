@@ -3,33 +3,30 @@ project(graficasOpengl)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(SDL2_PATH "${PROJECT_SOURCE_DIR}\\SDL2-2.0.12")
 
 find_package(SDL2 REQUIRED)
+link_directories(${SDL2_LIBRARY_DIRS})
 include_directories(${SDL2_INCLUDE_DIR})
 
-if(MSVC)
-    include_directories(${PROJECT_SOURCE_DIR}/glew-2.1.0/include)
-else()
-    find_package(GLEW REQUIRED)
-    include_directories(${GLEW_INCLUDE_DIRS})
-endif()
+find_package(assimp CONFIG REQUIRED)
+link_directories(${ASSIMP_LIBRARY_DIRS})
+include_directories(${ASSIMP_INCLUDE_DIRS})
+
+find_package(GLEW REQUIRED)
+link_directories(${GLEW_LIBRARY_DIRS})
+include_directories(${GLEW_INCLUDE_DIRS})
+
+find_package(GLM REQUIRED)
+include_directories(${GLM_INCLUDE_DIRS})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
-
 file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 add_executable(graficasOpengl main.cpp ${SOURCES})
-target_link_libraries(graficasOpengl ${SDL2_LIBRARY})
+
+target_link_libraries(graficasOpengl ${SDL2_LIBRARY} ${GLEW_LIBRARIES} ${ASSIMP_LIBRARIES} opengl32)
 
 if (MSVC)
-    file(GLOB DLLS ${PROJECT_SOURCE_DIR}/dlls/*.dll)
-    foreach(filename ${DLLS})
-        get_filename_component( Filename ${filename} NAME)
-        message(STATUS "${Filename}-${filename}")
-        configure_file(${filename} ${CMAKE_CURRENT_BINARY_DIR}/${Filename} COPYONLY)
-    endforeach()
-
     file(GLOB SHADERS ${PROJECT_SOURCE_DIR}/shaders/*.glsl)
     foreach(filename ${SHADERS})
         get_filename_component( Filename ${filename} NAME)
@@ -39,7 +36,6 @@ if (MSVC)
 endif ()
 
 if(MSVC)
-    target_link_libraries(graficasOpengl ${PROJECT_SOURCE_DIR}/glew-2.1.0/lib/Release/Win32/glew32.lib Opengl32.lib)
 
 else()
     target_link_libraries(graficasOpengl -lGLEW -lGL)
