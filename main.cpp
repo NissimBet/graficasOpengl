@@ -3,7 +3,7 @@
 #ifdef __linux__
 #include <SDL2/SDL.h>
 #endif
-#ifdef _WIN32
+#ifdef _MSC_VER
 #include <SDL.h>
 #endif
 
