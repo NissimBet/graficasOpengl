@@ -8,12 +8,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#ifdef _MSC_VER
 #include <SDL2/SDL_events.h>
-#endif
-#ifdef __linux__
-#include <SDL2/SDL_events.h>
-#endif
 
 // initial camera values
 const float YAW = -90.0f;

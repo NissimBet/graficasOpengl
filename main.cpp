@@ -1,20 +1,15 @@
 #include <iostream>
+#include <vector>
+
 #include <GL/glew.h>
-#ifdef __linux__
 #include <SDL2/SDL.h>
-#endif
-#ifdef _MSC_VER
-#include <SDL2/SDL.h>
-//#include <SDL.h>
-#endif
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 
-
-#include "Shader.h"
-#include <vector>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+
+#include "Shader.h"
 #include <Camera.h>
 #include <Cube.h>
 #include <TreeTrunk.h>
@@ -111,6 +106,8 @@ int main(int argc, char *argv[])
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(objFile.c_str(),aiProcessPreset_TargetRealtime_Fast);
     /////
+
+
 
     GLuint shader = Shader::LoadShaders("shaders/vertexShader.glsl", "shaders/fragmentShader.glsl");
 
