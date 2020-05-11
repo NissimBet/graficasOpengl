@@ -7,6 +7,8 @@
 #include <SDL2/SDL.h>
 //#include <SDL.h>
 #endif
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
 
 
 #include "Shader.h"
@@ -20,6 +22,9 @@
 // Screen size
 const int WINDOW_WIDTH = 840;
 const int WINDOW_HEIGHT = 480;
+
+// Obj file
+const std::string objFile = "challenge1.obj";
 
 /**
  * Function that initializes SDL and its subsystems if any
@@ -103,6 +108,8 @@ int main(int argc, char *argv[])
 
     window = initializeWindow("Test");
     context = initializeGL(window);
+    Assimp::Importer importer;
+    const aiScene *scene = importer.ReadFile(objFile.c_str(),aiProcessPreset_TargetRealtime_Fast);
     /////
 
     GLuint shader = Shader::LoadShaders("shaders/vertexShader.glsl", "shaders/fragmentShader.glsl");

@@ -16,7 +16,7 @@ find_package(GLEW REQUIRED)
 link_directories(${GLEW_LIBRARY_DIRS})
 include_directories(${GLEW_INCLUDE_DIRS})
 
-find_package(GLM REQUIRED)
+find_package(glm)
 include_directories(${GLM_INCLUDE_DIRS})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -24,20 +24,15 @@ file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 add_executable(graficasOpengl main.cpp ${SOURCES})
 
-target_link_libraries(graficasOpengl ${SDL2_LIBRARY} ${GLEW_LIBRARIES} ${ASSIMP_LIBRARIES} opengl32)
-
 if (MSVC)
     file(GLOB SHADERS ${PROJECT_SOURCE_DIR}/shaders/*.glsl)
+    target_link_libraries(graficasOpengl ${SDL2_LIBRARY} ${GLEW_LIBRARIES} ${ASSIMP_LIBRARIES} opengl32)
     foreach(filename ${SHADERS})
         get_filename_component( Filename ${filename} NAME)
         message(STATUS "${Filename}-${filename}")
         configure_file(${filename} ${CMAKE_CURRENT_BINARY_DIR}/shaders/${Filename} COPYONLY)
     endforeach()
-endif ()
-
-if(MSVC)
-
 else()
-    target_link_libraries(graficasOpengl -lGLEW -lGL)
-endif()
+    target_link_libraries(graficasOpengl -lGLEW -lGL -lSDL2 -lassimp)
+endif ()
 
