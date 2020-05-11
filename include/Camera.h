@@ -11,6 +11,9 @@
 #ifdef _MSC_VER
 #include <SDL_events.h>
 #endif
+#ifdef __linux__
+#include <SDL2/SDL_events.h>
+#endif
 
 // initial camera values
 const float YAW = -90.0f;
