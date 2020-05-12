@@ -13,13 +13,14 @@
 #include <Camera.h>
 #include <Cube.h>
 #include <TreeTrunk.h>
+#include "Model.h"
 
 // Screen size
 const int WINDOW_WIDTH = 840;
 const int WINDOW_HEIGHT = 480;
 
 // Obj file
-const std::string objFile = "challenge1.obj";
+const std::string objFile = "Snow_Cabin.obj";
 
 /**
  * Function that initializes SDL and its subsystems if any
@@ -103,8 +104,6 @@ int main(int argc, char *argv[])
 
     window = initializeWindow("Test");
     context = initializeGL(window);
-    Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile(objFile.c_str(),aiProcessPreset_TargetRealtime_Fast);
     /////
 
 
@@ -122,6 +121,9 @@ int main(int argc, char *argv[])
 
     // bind trunk to vao
     trunk.bind(VAO);
+
+    // import model from blender
+    Model model(objFile);
 
     // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
     glm::mat4 projectionMatrix = glm::perspective(
@@ -203,6 +205,7 @@ int main(int argc, char *argv[])
 
 
         trunk.draw(VAO);
+        model.draw(shader);
 
         // switch window buffer
         // if double buffering is supported
