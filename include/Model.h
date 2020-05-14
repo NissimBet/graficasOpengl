@@ -13,23 +13,22 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "WorldObject.h"
 
 struct aiNode;
 struct aiScene;
 struct aiMesh;
 struct aiMaterial;
 
-class Model {
+class Model : public WorldObject {
 public:
-    Model(const std::string &path) {
+    explicit Model(const std::string &path, glm::vec3 position = glm::vec3(0.0f)) : worldPosition(position), WorldObject() {
         loadModel(path);
-        this->modelMatrix = glm::mat4(1.0f);
-        this->worldPosition = glm::vec3(1.0f);
     }
     void draw(Shader);
 
-    glm::mat4 modelMatrix;
     glm::vec3 worldPosition;
+    void handleEvent(const SDL_Event &event) override;
 private:
     std::vector<Texture> textures_loaded;
     std::vector<Mesh> meshes;
@@ -39,6 +38,7 @@ private:
     void processNode(aiNode *node, const aiScene *scene);
     Mesh processMesh(aiMesh *mesh, const aiScene *scene);
     std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, const std::string &typeName);
+
 
 };
 

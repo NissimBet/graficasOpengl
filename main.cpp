@@ -21,6 +21,10 @@ const int WINDOW_HEIGHT = 480;
 
 // Full Scene file
 const std::string objFile = "Snow_Cabin.obj";
+const std::string objCabin = "cabin.obj";
+const std::string objCableway = "cableway.obj";
+const std::string objSled = "sled.obj";
+const std::string objTree = "tree.obj";
 
 /**
  * Function that initializes SDL and its subsystems if any
@@ -125,6 +129,10 @@ int main(int argc, char *argv[])
 
     // import model from blender
     Model model(objFile);
+//    Model treeModel(objTree);
+//    Model sledModel(objSled);
+//    Model cablewayModel(objCableway);
+//    Model cabinModel(objCabin);
 
     // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
     glm::mat4 projectionMatrix = glm::perspective(
@@ -175,7 +183,8 @@ int main(int argc, char *argv[])
         while(SDL_PollEvent(&event)) {
             // window x press
             mainCamera.handleEvent(event);
-            trunk.handleEvent(event);
+//            trunk.handleEvent(event);
+            model.handleEvent(event);
             if (event.type == SDL_QUIT) {
                 isRunning= false;
             }
@@ -210,7 +219,7 @@ int main(int argc, char *argv[])
 
 
 //        trunk.draw(VAO);
-        model.modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(5.0f * ( float ) glm::sin( SDL_GetTicks() / 1000.0f ), model.worldPosition.y,  -5.5f + 5.0f  * ( float ) glm::cos( SDL_GetTicks() / 1000.0f )));
+//        model.translate(glm::vec3(5.0f * ( float ) glm::sin( SDL_GetTicks() / 1000.0f ), model.worldPosition.y,  -5.5f + 5.0f  * ( float ) glm::cos( SDL_GetTicks() / 1000.0f )));
         model.draw(shader);
 
         // switch window buffer

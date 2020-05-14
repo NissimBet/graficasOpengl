@@ -16,6 +16,23 @@
 
 unsigned int TextureFromFile(const std::string &path, const std::string &directory, bool gamma = false);
 
+void Model::handleEvent(const SDL_Event &event) {
+    if(event.type == SDL_KEYDOWN) {
+        if(event.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+            this->rotate(15.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
+            this->rotate(15.0f, glm::vec3(0.0f, -1.0f, 0.0f));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
+            this->rotate(15.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+            this->rotate(15.0f, glm::vec3(-1.0f, 0.0f, 0.0f));
+        }
+    }
+}
+
 void Model::draw(Shader program) {
     program.setMat4("model", this->modelMatrix);
     for(auto &mesh : meshes) {
