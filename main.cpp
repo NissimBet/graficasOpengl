@@ -169,9 +169,7 @@ int main(int argc, char *argv[])
             // window x press
             mainCamera.handleEvent(event);
 //            model.handleEvent(event);
-            for(auto &object : objects) {
-                object.handleEvent(event);
-            }
+            objects[currentSelected].handleEvent(event);
             if (event.type == SDL_QUIT) {
                 isRunning= false;
             }
