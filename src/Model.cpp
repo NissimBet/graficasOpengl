@@ -16,9 +16,10 @@
 
 unsigned int TextureFromFile(const std::string &path, const std::string &directory, bool gamma = false);
 
-void Model::draw(GLuint programId) {
+void Model::draw(Shader program) {
+    program.setMat4("model", this->modelMatrix);
     for(auto &mesh : meshes) {
-        mesh.draw(programId);
+        mesh.draw(program.ID);
     }
 }
 

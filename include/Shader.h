@@ -6,6 +6,8 @@
 #define GRAFICASOPENGL_SHADER_H
 
 #include <GL/glew.h>
+#include <string>
+#include <glm/glm.hpp>
 
 class Shader {
 public:
@@ -15,7 +17,19 @@ public:
      * @param fragmentFilePath path of the fragment shader
      * @return the identifier of the compiled program that executes the shaders
      */
-    static GLuint LoadShaders(const char * vertexFilePath, const char * fragmentFilePath);
+    GLuint LoadShaders(const char * vertexFilePath, const char * fragmentFilePath);
+
+    void use() const {
+        glUseProgram(this->ID);
+    };
+
+    GLuint ID;
+
+    void setBool( const std::string &, bool ) const;
+    void setInt( const std::string &, int ) const;
+    void setFloat( const std::string &, float ) const;
+    void setMat4( const std::string &, glm::mat4 ) const;
+    void setVec3( const std::string &, glm::vec3 ) const;
 };
 
 

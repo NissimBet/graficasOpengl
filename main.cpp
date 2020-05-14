@@ -19,7 +19,7 @@
 const int WINDOW_WIDTH = 840;
 const int WINDOW_HEIGHT = 480;
 
-// Obj file
+// Full Scene file
 const std::string objFile = "Snow_Cabin.obj";
 
 /**
@@ -108,7 +108,8 @@ int main(int argc, char *argv[])
 
 
 
-    GLuint shader = Shader::LoadShaders("shaders/vertexShader.glsl", "shaders/fragmentShader.glsl");
+    Shader shader = Shader();
+    shader.LoadShaders("shaders/vertexShader.glsl", "shaders/fragmentShader.glsl");
 
     Camera mainCamera = Camera(glm::vec3(0.5f, 1.0f, 5.0f));
 
@@ -135,17 +136,20 @@ int main(int argc, char *argv[])
     // Model matrix : an identity matrix (model will be at the origin)
     glm::mat4 modelMatrix = glm::mat4(1.0f);
 
-    glUseProgram(shader);
+    shader.use();
 
     // get uniforms for rendering
-    GLint projectionID = glGetUniformLocation(shader, "projection");
-    GLint viewID = glGetUniformLocation(shader, "view");
-    GLint modelID = glGetUniformLocation(shader, "model");
+    shader.setMat4("projection", projectionMatrix);
+    shader.setMat4("view", mainCamera.getViewMatrix());
+    shader.setMat4("model", modelMatrix);
+//    GLint projectionID = glGetUniformLocation(shader.ID, "projection");
+//    GLint viewID = glGetUniformLocation(shader.ID, "view");
+//    GLint modelID = glGetUniformLocation(shader.ID, "model");
 
     // set values for each shader uniform
-    glUniformMatrix4fv(projectionID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-    glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
-    glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+//    glUniformMatrix4fv(projectionID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+//    glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
+//    glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
     // main loop control variables
     bool isRunning = true;
@@ -197,14 +201,16 @@ int main(int argc, char *argv[])
         mainCamera.moveCamera(deltaTime);
 
         // set shader to be used
-        glUseProgram(shader);
+        shader.use();
         // set view matrix (camera)
-        glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
+        shader.setMat4("view", mainCamera.getViewMatrix());
+//        glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
         // set model matrix (if it changed)
-        glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(trunk.getModelMatrix()));
+//        glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(trunk.getModelMatrix()));
 
 
-        trunk.draw(VAO);
+//        trunk.draw(VAO);
+        model.modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(5.0f * ( float ) glm::sin( SDL_GetTicks() / 1000.0f ), model.worldPosition.y,  -5.5f + 5.0f  * ( float ) glm::cos( SDL_GetTicks() / 1000.0f )));
         model.draw(shader);
 
         // switch window buffer
