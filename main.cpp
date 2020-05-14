@@ -19,7 +19,7 @@ const int WINDOW_WIDTH = 840;
 const int WINDOW_HEIGHT = 480;
 
 // Full Scene file
-const std::string objFile = "Snow_Cabin.obj";
+//const std::string objFile = "Snow_Cabin.obj";
 const std::string objCabin = "cabin.obj";
 const std::string objCableway = "cableway.obj";
 const std::string objSled = "sled.obj";
