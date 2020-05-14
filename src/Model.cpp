@@ -15,6 +15,7 @@
 #include "stb_image.h"
 
 unsigned int TextureFromFile(const std::string &path, const std::string &directory, bool gamma = false);
+float scalingFactor = 1.5f;
 
 void Model::handleEvent(const SDL_Event &event) {
     if(event.type == SDL_KEYDOWN) {
@@ -29,6 +30,12 @@ void Model::handleEvent(const SDL_Event &event) {
         }
         else if(event.key.keysym.scancode == SDL_SCANCODE_DOWN) {
             this->rotate(15.0f, glm::vec3(-1.0f, 0.0f, 0.0f));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_X) {
+            this->scale(glm::vec3(scalingFactor,scalingFactor,scalingFactor));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_Z) {
+            this->scale(glm::vec3(1/scalingFactor, 1/scalingFactor, 1/scalingFactor));
         }
     }
 }
