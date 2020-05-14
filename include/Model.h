@@ -27,7 +27,7 @@ public:
         this->scale(scaling);
         this->translate(position);
     }
-    void draw(Shader);
+    void draw(Shader, bool);
 
     glm::vec3 worldPosition;
     void handleEvent(const SDL_Event &event) override;

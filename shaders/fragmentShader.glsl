@@ -3,6 +3,9 @@
 in vec3 Color;
 out vec3 FragColor;
 
+uniform float selected;
+uniform vec3 highlight;
+
 void main() {
-  FragColor = Color;
+  FragColor = selected * highlight * Color;
 }

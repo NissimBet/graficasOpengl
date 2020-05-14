@@ -33,9 +33,11 @@ void Model::handleEvent(const SDL_Event &event) {
     }
 }
 
-void Model::draw(Shader program) {
+void Model::draw(Shader program, bool selected) {
     program.use();
     program.setMat4("model", this->modelMatrix);
+    program.setFloat("selected", selected ? 1.0f : 0.55f);
+    program.setVec3("highlight", glm::vec3(0.75f,0.75f,0.75f));
     for(auto &mesh : meshes) {
         mesh.draw(program.ID);
     }

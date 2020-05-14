@@ -131,6 +131,8 @@ int main(int argc, char *argv[])
             Model(objTree, glm::vec3(-2.5f, 0.0f, 7.5f), glm::vec3(0.5f, 0.75f, 0.5f)),
     };
 
+    int currentSelected = 0;
+
     // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
     glm::mat4 projectionMatrix = glm::perspective(
             glm::radians(45.0f),                        // 45 degree fov
@@ -179,8 +181,22 @@ int main(int argc, char *argv[])
                     case SDL_SCANCODE_ESCAPE:
                         isRunning = false;
                         break;
+//                    case SDL_SCANCODE_TAB:
+//                        currentSelected = (currentSelected + 1) % (sizeof(objects) / sizeof(Model)) ;
+//                        std::cout << currentSelected << std::endl;
+//                        break;
                     default:
                         break;
+                }
+                const Uint8 * state = SDL_GetKeyboardState(nullptr);
+                if (state[SDL_SCANCODE_LSHIFT] && state[SDL_SCANCODE_TAB]) {
+                    currentSelected--;
+                    if(currentSelected < 0) {
+                        currentSelected = sizeof(objects) / sizeof(Model) - 1;
+                    }
+                }
+                else if (state[SDL_SCANCODE_TAB]) {
+                    currentSelected = (currentSelected + 1) % (sizeof(objects) / sizeof(Model)) ;
                 }
             }
         }
@@ -199,8 +215,8 @@ int main(int argc, char *argv[])
         // set view matrix (camera)
         shader.setMat4("view", mainCamera.getViewMatrix());
 
-        for(auto &object : objects) {
-            object.draw(shader);
+        for(int i = 0; i < sizeof(objects) / sizeof(Model); i++) {
+            objects[i].draw(shader, i == currentSelected);
         }
 //        glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
         // set model matrix (if it changed)
