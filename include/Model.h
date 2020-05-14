@@ -22,8 +22,10 @@ struct aiMaterial;
 
 class Model : public WorldObject {
 public:
-    explicit Model(const std::string &path, glm::vec3 position = glm::vec3(0.0f)) : worldPosition(position), WorldObject() {
+    explicit Model(const std::string &path, glm::vec3 position = glm::vec3(0.0f), glm::vec3 scaling = glm::vec3(1.0f)) : worldPosition(position), WorldObject() {
         loadModel(path);
+        this->scale(scaling);
+        this->translate(position);
     }
     void draw(Shader);
 

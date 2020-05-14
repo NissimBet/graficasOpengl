@@ -12,7 +12,6 @@
 #include "Shader.h"
 #include <Camera.h>
 #include <Cube.h>
-#include <TreeTrunk.h>
 #include "Model.h"
 
 // Screen size
@@ -117,22 +116,20 @@ int main(int argc, char *argv[])
 
     Camera mainCamera = Camera(glm::vec3(0.5f, 1.0f, 5.0f));
 
-    TreeTrunk trunk = TreeTrunk();
-
-    // initialize VAO for opengl drawing
-    GLuint VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    // bind trunk to vao
-    trunk.bind(VAO);
-
     // import model from blender
-    Model model(objFile);
-//    Model treeModel(objTree);
-//    Model sledModel(objSled);
-//    Model cablewayModel(objCableway);
-//    Model cabinModel(objCabin);
+//    Model model(objFile);
+    Cube floor = Cube();
+
+
+    Model objects[] = {
+            Model(objCabin, glm::vec3(-5.0f, 0.0f, 5.0f), glm::vec3(0.8f)),
+            Model(objCableway, glm::vec3(3.0f, 15.0f, 3.0f), glm::vec3(0.25f)),
+            Model(objSled, glm::vec3(2.0f, -0.0f, -3.5f), glm::vec3(0.45f)),
+            Model(objTree, glm::vec3(-5.0f, 0.0f, 4.5f), glm::vec3(0.5f, 0.75f, 0.5f)),
+            Model(objTree, glm::vec3(-5.0f, 0.0f, 10.0f), glm::vec3(0.75f, 1.0f, 0.75f)),
+            Model(objTree, glm::vec3(5.0f, 0.0f, 3.0f), glm::vec3(0.5f, 0.75f, 0.5f)),
+            Model(objTree, glm::vec3(-2.5f, 0.0f, 7.5f), glm::vec3(0.5f, 0.75f, 0.5f)),
+    };
 
     // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
     glm::mat4 projectionMatrix = glm::perspective(
@@ -141,23 +138,9 @@ int main(int argc, char *argv[])
             0.1f,                                               // 0.1 minimum drawing range
             100.0f);                                             // 100 maximum drawing range
 
-    // Model matrix : an identity matrix (model will be at the origin)
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
-
     shader.use();
-
-    // get uniforms for rendering
     shader.setMat4("projection", projectionMatrix);
     shader.setMat4("view", mainCamera.getViewMatrix());
-    shader.setMat4("model", modelMatrix);
-//    GLint projectionID = glGetUniformLocation(shader.ID, "projection");
-//    GLint viewID = glGetUniformLocation(shader.ID, "view");
-//    GLint modelID = glGetUniformLocation(shader.ID, "model");
-
-    // set values for each shader uniform
-//    glUniformMatrix4fv(projectionID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-//    glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
-//    glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
     // main loop control variables
     bool isRunning = true;
@@ -183,8 +166,10 @@ int main(int argc, char *argv[])
         while(SDL_PollEvent(&event)) {
             // window x press
             mainCamera.handleEvent(event);
-//            trunk.handleEvent(event);
-            model.handleEvent(event);
+//            model.handleEvent(event);
+            for(auto &object : objects) {
+                object.handleEvent(event);
+            }
             if (event.type == SDL_QUIT) {
                 isRunning= false;
             }
@@ -213,14 +198,18 @@ int main(int argc, char *argv[])
         shader.use();
         // set view matrix (camera)
         shader.setMat4("view", mainCamera.getViewMatrix());
+
+        for(auto &object : objects) {
+            object.draw(shader);
+        }
 //        glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
         // set model matrix (if it changed)
-//        glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(trunk.getModelMatrix()));
 
 
-//        trunk.draw(VAO);
 //        model.translate(glm::vec3(5.0f * ( float ) glm::sin( SDL_GetTicks() / 1000.0f ), model.worldPosition.y,  -5.5f + 5.0f  * ( float ) glm::cos( SDL_GetTicks() / 1000.0f )));
-        model.draw(shader);
+//        model.draw(shader);
+
+
 
         // switch window buffer
         // if double buffering is supported

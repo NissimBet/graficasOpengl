@@ -34,6 +34,7 @@ void Model::handleEvent(const SDL_Event &event) {
 }
 
 void Model::draw(Shader program) {
+    program.use();
     program.setMat4("model", this->modelMatrix);
     for(auto &mesh : meshes) {
         mesh.draw(program.ID);
