@@ -22,10 +22,16 @@ struct aiMaterial;
 
 class Model : public WorldObject {
 public:
-    explicit Model(const std::string &path, glm::vec3 position = glm::vec3(0.0f), glm::vec3 scaling = glm::vec3(1.0f)) : WorldObject(position) {
+    explicit Model(const std::string &path, const glm::vec3 &position, const glm::vec3 &scaling) : WorldObject(position) {
         loadModel(path);
         this->scale(scaling);
     }
+
+    Model(const std::string &path, const glm::vec3 &scaling) : WorldObject(glm::vec3(0.0f)) {
+        loadModel(path);
+        this->scale(scaling);
+    }
+
     void draw(Shader, bool);
 
     void handleEvent(const SDL_Event &event) override;

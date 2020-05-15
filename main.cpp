@@ -122,14 +122,21 @@ int main(int argc, char *argv[])
 
 
     Model objects[] = {
-            Model(objCabin, glm::vec3(-5.0f, 0.0f, 5.0f), glm::vec3(0.8f)),
-            Model(objCableway, glm::vec3(3.0f, 15.0f, 3.0f), glm::vec3(0.25f)),
-            Model(objSled, glm::vec3(2.0f, -0.0f, -3.5f), glm::vec3(0.45f)),
-            Model(objTree, glm::vec3(-5.0f, 0.0f, 4.5f), glm::vec3(0.5f, 0.75f, 0.5f)),
-            Model(objTree, glm::vec3(-5.0f, 0.0f, 10.0f), glm::vec3(0.75f, 1.0f, 0.75f)),
-            Model(objTree, glm::vec3(5.0f, 0.0f, 3.0f), glm::vec3(0.5f, 0.75f, 0.5f)),
-            Model(objTree, glm::vec3(-2.5f, 0.0f, 7.5f), glm::vec3(0.5f, 0.75f, 0.5f)),
+            Model(objCabin, glm::vec3(0.8f)),
+            Model(objCableway, glm::vec3(0.25f)),
+            Model(objSled, glm::vec3(0.45f)),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f)),
+            Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f)),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f)),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f)),
     };
+
+    objects[0].translate(glm::vec3(0.0f,0.0f,-8.0f));
+    objects[1].translate(glm::vec3(0.0f,20.0f,0.0f));
+    objects[3].translate(glm::vec3(-6.0f,0.0f,-14.0f));
+    objects[4].translate(glm::vec3(-6.0f,0.0f,-5.0f));
+    objects[5].translate(glm::vec3(7.0f,0.0f,-14.0f));
+    objects[6].translate(glm::vec3(7.0f,0.0f,-6.0f));
 
     int currentSelected = 0;
 
@@ -216,6 +223,9 @@ int main(int argc, char *argv[])
         for(int i = 0; i < sizeof(objects) / sizeof(Model); i++) {
             objects[i].draw(shader, i == currentSelected);
         }
+
+        glm::vec3 currentPVector = objects[currentSelected].getPositionVector();
+        std::cout << "(" << currentPVector.x << "," << currentPVector.y << "," << currentPVector.z << ")" << std::endl;
 //        glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
         // set model matrix (if it changed)
 

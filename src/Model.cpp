@@ -37,17 +37,17 @@ void Model::handleEvent(const SDL_Event &event) {
         else if(event.key.keysym.scancode == SDL_SCANCODE_Z) {
             this->scale(glm::vec3(1/scalingFactor, 1/scalingFactor, 1/scalingFactor));
         }
-        else if(event.key.keysym.scancode == SDL_SCANCODE_L) {
+        else if(event.key.keysym.scancode == SDL_SCANCODE_I) {
             this->translate(glm::vec3(1.0f, 0.0f, 0.0f));
         }
-        else if(event.key.keysym.scancode == SDL_SCANCODE_J) {
+        else if(event.key.keysym.scancode == SDL_SCANCODE_K) {
             this->translate(glm::vec3(-1.0f,0.0f,0.0f));
         }
-        else if(event.key.keysym.scancode == SDL_SCANCODE_I) {
-            this->translate(glm::vec3(0.0f,1.0f,0.0f));
+        else if(event.key.keysym.scancode == SDL_SCANCODE_L) {
+            this->translate(glm::vec3(0.0f,0.0f,1.0f));
         }
-        else if(event.key.keysym.scancode == SDL_SCANCODE_K) {
-            this->translate(glm::vec3(0.0f,-1.0f,0.0f));
+        else if(event.key.keysym.scancode == SDL_SCANCODE_J) {
+            this->translate(glm::vec3(0.0f,0.0f,-1.0f));
         }
     }
 }
