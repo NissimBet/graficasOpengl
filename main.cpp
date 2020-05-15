@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 
     Model objects[] = {
             Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f,0.6f,0.42f)),
-            Model(objCableway, glm::vec3(0.25f), glm::vec3(192/255,192/255,192/255)),
+            Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f,0.75f,0.75fg)),
             Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f,0.6f,0.42f)),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
             Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f), leafGreen),
