@@ -22,14 +22,12 @@ struct aiMaterial;
 
 class Model : public WorldObject {
 public:
-    explicit Model(const std::string &path, glm::vec3 position = glm::vec3(0.0f), glm::vec3 scaling = glm::vec3(1.0f)) : worldPosition(position), WorldObject() {
+    explicit Model(const std::string &path, glm::vec3 position = glm::vec3(0.0f), glm::vec3 scaling = glm::vec3(1.0f)) : WorldObject(position) {
         loadModel(path);
         this->scale(scaling);
-        this->translate(position);
     }
     void draw(Shader, bool);
 
-    glm::vec3 worldPosition;
     void handleEvent(const SDL_Event &event) override;
 private:
     std::vector<Texture> textures_loaded;
