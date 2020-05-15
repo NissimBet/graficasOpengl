@@ -111,6 +111,10 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
         } else {
             vertex.TextCoords = glm::vec2(0.0f, 0.0f);
         }
+        vector.x = 0.0f;
+        vector.y = 0.0f;
+        vector.z = 0.0f;
+        vertex.Color = vector;
         vertices.push_back(vertex);
     }
 
