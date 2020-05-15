@@ -19,16 +19,16 @@ float scalingFactor = 1.5f;
 
 void Model::handleEvent(const SDL_Event &event) {
     if(event.type == SDL_KEYDOWN) {
-        if(event.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+        if(event.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
             this->rotate(15.0f, glm::vec3(0.0f, 1.0f, 0.0f));
         }
-        else if(event.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
+        else if(event.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             this->rotate(15.0f, glm::vec3(0.0f, -1.0f, 0.0f));
         }
-        else if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
+        else if(event.key.keysym.scancode == SDL_SCANCODE_DOWN) {
             this->rotate(15.0f, glm::vec3(1.0f, 0.0f, 0.0f));
         }
-        else if(event.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+        else if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
             this->rotate(15.0f, glm::vec3(-1.0f, 0.0f, 0.0f));
         }
         else if(event.key.keysym.scancode == SDL_SCANCODE_X) {
@@ -36,6 +36,18 @@ void Model::handleEvent(const SDL_Event &event) {
         }
         else if(event.key.keysym.scancode == SDL_SCANCODE_Z) {
             this->scale(glm::vec3(1/scalingFactor, 1/scalingFactor, 1/scalingFactor));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_L) {
+            this->translate(glm::vec3(1.0f, 0.0f, 0.0f));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_J) {
+            this->translate(glm::vec3(-1.0f,0.0f,0.0f));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_I) {
+            this->translate(glm::vec3(0.0f,1.0f,0.0f));
+        }
+        else if(event.key.keysym.scancode == SDL_SCANCODE_K) {
+            this->translate(glm::vec3(0.0f,-1.0f,0.0f));
         }
     }
 }
