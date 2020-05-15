@@ -129,14 +129,16 @@ int main(int argc, char *argv[])
     glCreateVertexArrays(1, &floorVAO);
     floor.bind(floorVAO);
 
+    glm::vec3 leafGreen = glm::vec3(0.322,0.42,0.176);
+
     Model objects[] = {
-            Model(objCabin, glm::vec3(0.8f)),
-            Model(objCableway, glm::vec3(0.25f)),
-            Model(objSled, glm::vec3(0.45f)),
-            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f)),
-            Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f)),
-            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f)),
-            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f)),
+            Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f,0.6f,0.42f)),
+            Model(objCableway, glm::vec3(0.25f), glm::vec3(192/255,192/255,192/255)),
+            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f,0.6f,0.42f)),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
+            Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f), leafGreen),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
     };
 
     objects[0].translate(glm::vec3(0.0f,0.0f,-8.0f));

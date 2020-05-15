@@ -22,12 +22,12 @@ struct aiMaterial;
 
 class Model : public WorldObject {
 public:
-    explicit Model(const std::string &path, const glm::vec3 &position, const glm::vec3 &scaling) : WorldObject(position) {
+    explicit Model(const std::string &path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color) : WorldObject(position), color(color) {
         loadModel(path);
         this->scale(scaling);
     }
 
-    Model(const std::string &path, const glm::vec3 &scaling) : WorldObject(glm::vec3(0.0f)) {
+    Model(const std::string &path, const glm::vec3 &scaling, const glm::vec3 &color) : WorldObject(glm::vec3(0.0f)), color(color) {
         loadModel(path);
         this->scale(scaling);
     }
@@ -39,6 +39,7 @@ private:
     std::vector<Texture> textures_loaded;
     std::vector<Mesh> meshes;
     std::string directory;
+    glm::vec3 color;
 
     void loadModel(const std::string &);
     void processNode(aiNode *node, const aiScene *scene);
