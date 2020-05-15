@@ -120,6 +120,14 @@ int main(int argc, char *argv[])
 //    Model model(objFile);
     Cube floor = Cube();
 
+    glm::vec3 floorPosition = glm::vec3(-5.0f, 0.0f, -5.0f);
+    glm::vec3 floorScale = glm::vec3(10.0f, 0.2f, 10.0f);
+    glm::mat4 floorModel = glm::translate(glm::mat4(1), floorPosition);
+    floorModel = glm::scale(floorModel, floorScale);
+
+    GLuint floorVAO;
+    glCreateVertexArrays(1, &floorVAO);
+    floor.bind(floorVAO);
 
     Model objects[] = {
             Model(objCabin, glm::vec3(0.8f)),
@@ -229,7 +237,8 @@ int main(int argc, char *argv[])
 //        glUniformMatrix4fv(viewID, 1, GL_FALSE, glm::value_ptr(mainCamera.getViewMatrix()));
         // set model matrix (if it changed)
 
-
+        shader.setMat4("model", floorModel);
+        floor.draw(floorVAO);
 //        model.translate(glm::vec3(5.0f * ( float ) glm::sin( SDL_GetTicks() / 1000.0f ), model.worldPosition.y,  -5.5f + 5.0f  * ( float ) glm::cos( SDL_GetTicks() / 1000.0f )));
 //        model.draw(shader);
 
