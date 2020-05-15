@@ -4,9 +4,10 @@
 
 #include "Cube.h"
 
-Cube::Cube() : GLObject(3, 3)   {
+Cube::Cube(GLfloat r, GLfloat g, GLfloat b) : GLObject(3, 3)   {
     this->colors = std::vector<GLfloat>();
     this->initVertices();
+    this->setColors(r, g, b);
 
     // unbind any VAO, to prevent unwanted behavior when generating the VBOs
     glBindVertexArray(0);

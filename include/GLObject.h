@@ -38,7 +38,14 @@ public:
         } else {
             return false;
         }
-
+    }
+    void setColors(const GLfloat r, GLfloat g, GLfloat b) {
+        this->colors = std::vector<GLfloat>(this->vertices.size());
+        for (int i = 0; i < this->vertices.size() - 2; i += 3) {
+            this->colors[i] = r;
+            this->colors[i + 1] = g;
+            this->colors[i + 2] = b;
+        }
     }
 protected:
     // vertices VBO identifier
@@ -59,9 +66,9 @@ protected:
 
     // shader attribute locations for consistency
     const GLuint VERTEX_ATTRIB = 0;
-    const GLuint COLOR_ATTRIB = 1;
+    const GLuint NORMAL_ATTRIB = 1;
     const GLuint TEXTURE_ATTRIB = 2;
-    const GLuint NORMAL_ATTRIB = 3;
+    const GLuint COLOR_ATTRIB = 3;
 };
 
 #endif //GRAFICASOPENGL_GLOBJECT_H

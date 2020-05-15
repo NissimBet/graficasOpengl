@@ -9,7 +9,7 @@
 
 class Cube : public GLObject {
 public:
-    Cube();
+    Cube(GLfloat, GLfloat, GLfloat);
     ~Cube();
 
     void bind(GLuint VAO) const override;
