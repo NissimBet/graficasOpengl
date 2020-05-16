@@ -12,14 +12,8 @@
 #include "Model.h"
 
 // Screen size
-const int WINDOW_WIDTH = 840;
-const int WINDOW_HEIGHT = 480;
-
-// Full Scene file
-const std::string objCabin = "cabin.obj";
-const std::string objCableway = "cableway.obj";
-const std::string objSled = "sled.obj";
-const std::string objTree = "tree.obj";
+constexpr int WINDOW_WIDTH = 840;
+constexpr int WINDOW_HEIGHT = 480;
 
 /**
  * Function that initializes SDL and its subsystems if any
@@ -104,14 +98,16 @@ int main(int argc, char *argv[]) {
     context = initializeGL(window);
     //
 
-
+    // Full Scene file
+    const std::string objCabin = "cabin.obj";
+    const std::string objCableway = "cableway.obj";
+    const std::string objSled = "sled.obj";
+    const std::string objTree = "tree.obj";
 
     Shader shader("shaders/vertexShader.glsl", "shaders/fragmentShader.glsl");
 
     Camera mainCamera = Camera(glm::vec3(0.5f, 1.0f, 5.0f));
 
-    // import model from blender
-//    Model model(objFile);
     Cube floor = Cube(1.0f, 1.0f, 1.0f);
 
     glm::vec3 floorScale = glm::vec3(10.0f, 0.2f, 10.0f);
@@ -125,7 +121,8 @@ int main(int argc, char *argv[]) {
 
     glm::vec3 leafGreen = glm::vec3(0.322, 0.42, 0.176);
 
-    std::array<Model,7> objects= {
+    // Import models
+    std::array<Model, 7> objects = {
             Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f)),
             Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f)),
             Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f)),
@@ -166,13 +163,12 @@ int main(int argc, char *argv[]) {
 
     // program time
     float lastFrameTime = SDL_GetTicks() / 1000.0f;
-    float deltaTime = 0;
 
     while (isRunning) {
         // get time difference between loops
         // used for movement to make it smoother
         float currentFrameTime = SDL_GetTicks() / 1000.0f;
-        deltaTime = currentFrameTime - lastFrameTime;
+        float deltaTime = currentFrameTime - lastFrameTime;
         lastFrameTime = currentFrameTime;
 
         // handle keyboard, mouse and window events
@@ -229,8 +225,6 @@ int main(int argc, char *argv[]) {
         shader.setFloat("selected", 1.0f);
         shader.setMat4("model", floorModel);
         floor.draw(floorVAO);
-//        model.translate(glm::vec3(5.0f * ( float ) glm::sin( SDL_GetTicks() / 1000.0f ), model.worldPosition.y,  -5.5f + 5.0f  * ( float ) glm::cos( SDL_GetTicks() / 1000.0f )));
-//        model.draw(shader);
 
 
 
