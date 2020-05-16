@@ -43,7 +43,7 @@ Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scali
 void Model::translate(glm::vec3 translationMatrix) {
     WorldObject::translate(translationMatrix);
     std::cout << "Position of " << path << " at: ";
-    std::cout << "(" << position.x << "," << position.y << "," << position.z << ")";
+    std::cout << "(" << position.x << "," << position.y << "," << position.z << ")" << std::endl;
 }
 
 unsigned int TextureFromFile(const std::string &path, const std::string &directory, bool gamma = false);
@@ -64,13 +64,13 @@ void Model::handleEvent(const SDL_Event &event) {
             this->scale(glm::vec3(scalingFactor, scalingFactor, scalingFactor));
         } else if (event.key.keysym.scancode == SDL_SCANCODE_Z) {
             this->scale(glm::vec3(1 / scalingFactor, 1 / scalingFactor, 1 / scalingFactor));
-        } else if (event.key.keysym.scancode == SDL_SCANCODE_I) {
-            this->translate(glm::vec3(1.0f, 0.0f, 0.0f));
-        } else if (event.key.keysym.scancode == SDL_SCANCODE_K) {
-            this->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
         } else if (event.key.keysym.scancode == SDL_SCANCODE_L) {
-            this->translate(glm::vec3(0.0f, 0.0f, 1.0f));
+            this->translate(glm::vec3(1.0f, 0.0f, 0.0f));
         } else if (event.key.keysym.scancode == SDL_SCANCODE_J) {
+            this->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
+        } else if (event.key.keysym.scancode == SDL_SCANCODE_K) {
+            this->translate(glm::vec3(0.0f, 0.0f, 1.0f));
+        } else if (event.key.keysym.scancode == SDL_SCANCODE_I) {
             this->translate(glm::vec3(0.0f, 0.0f, -1.0f));
         }
     }
