@@ -10,6 +10,7 @@
 #include <Camera.h>
 #include <Cube.h>
 #include "Model.h"
+#include "ModelColors.h"
 
 // Screen size
 constexpr int WINDOW_WIDTH = 840;
@@ -123,18 +124,18 @@ int main(int argc, char *argv[]) {
 
     // Import models
     std::array<Model, 7> objects = {
-            Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f)),
-            Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f)),
-            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f)),
+            Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f), cabinColors),
+            Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f), cablewayColors),
+            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f), sledColors),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
             Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f), leafGreen),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
     };
 
-    objects[0].translate(glm::vec3(0.0f, 0.0f, -8.0f));
-    objects[1].translate(glm::vec3(0.0f, 20.0f, 0.0f));
-    objects[3].translate(glm::vec3(-6.0f, 0.0f, -14.0f));
+    objects[0].translate(glm::vec3(0.0f, -0.05f, -8.0f));
+    objects[1].translate(glm::vec3(0.0f, 25.0f, 0.0f));
+    objects[3].translate(glm::vec3(-7.0f, 0.0f, -14.0f));
     objects[4].translate(glm::vec3(-6.0f, 0.0f, -5.0f));
     objects[5].translate(glm::vec3(7.0f, 0.0f, -14.0f));
     objects[6].translate(glm::vec3(7.0f, 0.0f, -6.0f));
@@ -202,7 +203,7 @@ int main(int argc, char *argv[]) {
         }
 
         // default color of screen
-        glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
+        glClearColor(0.909f, 0.917f, 0.925f, 1.0f);
 
         // clear color and depth buffers
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

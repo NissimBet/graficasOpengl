@@ -20,7 +20,7 @@ find_package(glm)
 include_directories(${GLM_INCLUDE_DIRS})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
-file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*)
 
 add_executable(graficasOpengl main.cpp ${SOURCES})
 
@@ -36,3 +36,8 @@ else ()
     target_link_libraries(graficasOpengl -lGLEW -lGL -lSDL2 -lassimp)
 endif ()
 
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    target_compile_definitions(graficasOpengl PUBLIC DEBUG=1)
+elseif(CMAKE_BUILD_TYPE MATCHES Release)
+    target_compile_definitions(graficasOpengl PUBLIC DEBUG=0)
+endif()

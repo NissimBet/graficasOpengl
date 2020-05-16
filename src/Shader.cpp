@@ -7,7 +7,9 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#ifdef DEBUG
 #include <iostream>
+#endif
 #include <glm/ext.hpp>
 #include <GL/glew.h>
 #include <utility>
@@ -51,7 +53,9 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
     int infoLogLength;
 
     // compile vertex shader
+#ifdef DEBUG
     std::cout << "Compiling shader " << vertexFilePath << std::endl;
+#endif
     char const *vertexSourcePointer = vertexShaderCode.c_str();
     glShaderSource(VertexShaderId, 1, &vertexSourcePointer, nullptr);
     glCompileShader(VertexShaderId);
@@ -66,7 +70,9 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
     }
 
     // compile fragment shader
+#ifdef DEBUG
     std::cout << "Compiling shader " << fragmentFilePath << std::endl;
+#endif
     char const *fragmentSourcePointer = fragmentShaderCode.c_str();
     glShaderSource(FragmentShaderId, 1, &fragmentSourcePointer, nullptr);
     glCompileShader(FragmentShaderId);
@@ -80,7 +86,9 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
         std::cout << &fragmentShaderErrorMessage.at(0) << std::endl;
     }
 
+#ifdef DEBUG
     std::cout << "Linking Program " << std::endl;
+#endif
 
     // link shaders to program
     GLuint programId = glCreateProgram();

@@ -7,17 +7,17 @@
 
 #include <vector>
 #include <string>
-#include <GL/glew.h>
+#include <unordered_map>
 #include <glm/vec3.hpp>
 #include <assimp/material.h>
 #include "Mesh.h"
-#include "Shader.h"
 #include "WorldObject.h"
 
 struct aiNode;
 struct aiScene;
 struct aiMesh;
-struct aiMaterial;
+
+class Shader;
 
 class ModelException : public std::exception {
 public:
@@ -31,27 +31,29 @@ private:
 
 class Model : public WorldObject {
 public:
-    explicit Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color);
+    explicit Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap = {});
 
-    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color);
+    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap = {});
 
     void draw(const Shader &, bool);
 
     void handleEvent(const SDL_Event &event) override;
 
+    void addMeshColor(const std::string &, glm::vec3);
+
     void translate(glm::vec3 translationMatrix) override;
 
 private:
     std::vector<Mesh> meshes;
-    std::string directory;
+    std::unordered_map<std::string, glm::vec3> colorMap;
     std::string path;
     glm::vec3 color;
 
-    void loadModel();
+    inline void loadModel();
 
     void processNode(aiNode *node, const aiScene *scene);
 
-    Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+    Mesh processMesh(aiMesh *mesh);
 };
 
 #endif //GRAFICASOPENGL_MODEL_H

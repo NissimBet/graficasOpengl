@@ -15,7 +15,6 @@ public:
     std::vector<unsigned int> indices;
 
     Mesh(std::vector<Vertex>, std::vector<unsigned int>);
-
     void draw() const;
 
 private:
@@ -23,7 +22,7 @@ private:
     GLuint VERTEX_ATTRIB = 0;
     GLuint COLOR_ATTRIB = 1;
 
-    void setupMesh();
+    inline void setupMesh();
 };
 
 #endif //GRAFICASOPENGL_MESH_H

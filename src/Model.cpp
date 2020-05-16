@@ -5,12 +5,36 @@
 #include "Model.h"
 #include "Mesh.h"
 #include "Vertex.h"
+#include "Shader.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <iostream>
 #include <sstream>
 #include <utility>
+
+#ifdef DEBUG
+#include <iostream>
+#endif
+
+// trim from start (in place)
+static inline void ltrim(std::string &s) {
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
+        return !std::isspace(ch);
+    }));
+}
+
+// trim from end (in place)
+static inline void rtrim(std::string &s) {
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
+        return !std::isspace(ch);
+    }).base(), s.end());
+}
+
+// trim from both ends (in place)
+static inline void trim(std::string &s) {
+    ltrim(s);
+    rtrim(s);
+}
 
 ModelException::ModelException(const std::string &modelName, const char *errorInfo) {
     std::ostringstream os;
@@ -23,25 +47,25 @@ const char *ModelException::what() const noexcept {
     return errorMessage.c_str();
 }
 
-Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color) : WorldObject(glm::vec3(0.0f)),
-                                                                                   color(color), path(std::move(path)) {
+Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap) : WorldObject(glm::vec3(0.0f)),
+                                                                                   color(color), path(std::move(path)), colorMap(std::move(colorMap)) {
     loadModel();
     this->scale(scaling);
 }
 
-Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color)
-        : WorldObject(position), path(std::move(path)), color(color) {
+Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap)
+        : WorldObject(position), path(std::move(path)), color(color), colorMap(std::move(colorMap)) {
     loadModel();
     this->scale(scaling);
 }
 
 void Model::translate(glm::vec3 translationMatrix) {
     WorldObject::translate(translationMatrix);
+#ifdef DEBUG
     std::cout << "Position of " << path << " at: ";
     std::cout << "(" << position.x << "," << position.y << "," << position.z << ")" << std::endl;
+#endif
 }
-
-unsigned int TextureFromFile(const std::string &path, const std::string &directory, bool gamma = false);
 
 float scalingFactor = 1.5f;
 
@@ -88,7 +112,6 @@ void Model::loadModel() {
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         throw ModelException(path, import.GetErrorString());
     }
-    directory = path.substr(0, path.find_last_of('/'));
 
     processNode(scene->mRootNode, scene);
 }
@@ -97,7 +120,7 @@ void Model::processNode(aiNode *node, const aiScene *scene) {
     // process meshes
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene));
+        meshes.push_back(processMesh(mesh));
     }
     // process child nodes
     for (unsigned int i = 0; i < node->mNumChildren; i++) {
@@ -105,18 +128,35 @@ void Model::processNode(aiNode *node, const aiScene *scene) {
     }
 }
 
-Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
+void Model::addMeshColor(const std::string &meshName, glm::vec3 meshColor) {
+    colorMap.insert(std::make_pair(meshName, meshColor));
+}
+
+Mesh Model::processMesh(aiMesh *mesh) {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
+    std::string meshName(mesh->mName.C_Str());
+    trim(meshName);
+
+#ifdef DEBUG
+    if (path.find("tree") == std::string::npos) {
+        std::cout << "Mesh name: " << meshName << std::endl;
+    }
+#endif
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-        Vertex vertex;
         glm::vec3 vector;
         vector.x = mesh->mVertices[i].x;
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
-        vertex.Position = vector;
-        vertex.Color = this->color;
+        glm::vec3 vColor;
+        auto mColor = colorMap.find(meshName);
+        if(mColor == colorMap.end()) {
+            vColor = this->color;
+        } else {
+            vColor = mColor->second;
+        }
+        Vertex vertex = {vector, vColor};
         vertices.push_back(vertex);
     }
 
