@@ -23,10 +23,11 @@ public:
         this->modelMatrix = glm::rotate(this->modelMatrix, degrees * glm::pi<float>() / 180.0f, rotationAxis);
     };
 
-    void translate(glm::vec3 translationMagnitude) {
+    virtual void translate(glm::vec3 translationMagnitude) {
         this->position += translationMagnitude;
         this->modelMatrix = glm::translate(this->modelMatrix, translationMagnitude);
     };
+
     void setPosition(glm::vec3 newPosition) {
         //this->modelMatrix = glm::translate(this->modelMatrix, -1 * this->position);
         this->position = newPosition;

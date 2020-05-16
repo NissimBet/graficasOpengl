@@ -21,22 +21,19 @@ const float SENSITIVITY = 0.1f;
 // fov
 const float ZOOM = 45.0f;
 
-class Camera
-{
+class Camera {
 public:
     // check for multiple keys pressed at once
-    enum ContinuedCheckKeys
-    {
-        KEY_UP = 0,		// Forward
-        KEY_DOWN = 1,	// Backward
-        KEY_LEFT = 2,	// Left
-        KEY_RIGHT = 3,	// Right
+    enum ContinuedCheckKeys {
+        KEY_UP = 0,        // Forward
+        KEY_DOWN = 1,    // Backward
+        KEY_LEFT = 2,    // Left
+        KEY_RIGHT = 3,    // Right
         TOTAL_KEYS = 4
     };
 
     // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
-    enum Camera_Movement
-    {
+    enum Camera_Movement {
         FORWARD,
         BACKWARD,
         LEFT,
@@ -62,16 +59,15 @@ public:
 
     // vector constructor
     explicit Camera(
-            glm::vec3 cameraPosition = glm::vec3( 0.0f, 0.0f, 0.0f ),
-            glm::vec3 cameraUp = glm::vec3( 0.0f, 1.0f, 0.0f ),
-            glm::vec3 cameraFront = glm::vec3( 0.0f, 0.0f, -1.0f ),
+            glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f),
+            glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f),
             float yaw = YAW, float pitch = PITCH, float zoom = ZOOM,
             float moveSpeed = SPEED, float sensitivity = SENSITIVITY)
-            :   cameraPosition(cameraPosition), cameraUp(cameraUp),
-                cameraFront(cameraFront), yaw(yaw),
-                pitch(pitch), zoom(zoom), movementSpeed(moveSpeed),
-                mouseSensitivity(sensitivity), worldUp(cameraUp)
-    {
+            : cameraPosition(cameraPosition), cameraUp(cameraUp),
+              cameraFront(cameraFront), yaw(yaw),
+              pitch(pitch), zoom(zoom), movementSpeed(moveSpeed),
+              mouseSensitivity(sensitivity), worldUp(cameraUp) {
         resetConstantKeys();
         updateCameraVectors();
     };
@@ -81,7 +77,7 @@ public:
      * @return
      */
     glm::mat4 getViewMatrix() const {
-        return glm::lookAt( cameraPosition, cameraPosition + cameraFront, cameraUp );
+        return glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
     }
 
     /**
@@ -95,16 +91,18 @@ public:
      * @param movementDirection direction of the movement (front, back, left, right)
      * @param wasEventKeyDown whether the key is being pressed or released
      */
-    void handleEvent( Camera_Movement movementDirection, bool wasEventKeyDown );
+    void handleEvent(Camera_Movement movementDirection, bool wasEventKeyDown);
+
     /**
      * function that handles mouse movement to rotate camera
      * @param deltaX mouse change in x direction
      * @param deltaY mouse change in y direction
      */
-    void handleEvent( Sint32 deltaX, Sint32 deltaY );
+    void handleEvent(Sint32 deltaX, Sint32 deltaY);
 
     // move camera after event handling
-    void moveCamera( float deltaTime );
+    void moveCamera(float deltaTime);
+
 private:
     // update front, up and right vectors
     void updateCameraVectors();

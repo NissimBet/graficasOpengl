@@ -16,11 +16,13 @@ public:
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
-    Mesh(std::vector<Vertex> , std::vector<unsigned int> , std::vector<Texture>);
+    Mesh(std::vector<Vertex>, std::vector<unsigned int>, std::vector<Texture>);
+
     void draw(GLuint);
 
 private:
     GLuint VAO, VBO, EBO;
+
     void setupMesh();
 };
 

@@ -4,7 +4,7 @@
 
 #include "Cube.h"
 
-Cube::Cube(GLfloat r, GLfloat g, GLfloat b) : GLObject(3, 3)   {
+Cube::Cube(GLfloat r, GLfloat g, GLfloat b) : GLObject(3, 3) {
     this->colors = std::vector<GLfloat>();
     this->initVertices();
     this->setColors(r, g, b);
@@ -47,8 +47,10 @@ void Cube::bind(GLuint VAO) const {
 
     if (!this->colors.empty()) {
         glBindBuffer(GL_ARRAY_BUFFER, this->colorsVBO);
-        glBufferData(GL_ARRAY_BUFFER, this->colors.size() * sizeof(this->colors[0]), &this->colors.front(), GL_STATIC_DRAW);
-        glVertexAttribPointer(this->COLOR_ATTRIB, this->POINTS_PER_COLOR, GL_FLOAT, GL_FALSE, this->POINTS_PER_COLOR * sizeof(GLfloat), nullptr);
+        glBufferData(GL_ARRAY_BUFFER, this->colors.size() * sizeof(this->colors[0]), &this->colors.front(),
+                     GL_STATIC_DRAW);
+        glVertexAttribPointer(this->COLOR_ATTRIB, this->POINTS_PER_COLOR, GL_FLOAT, GL_FALSE,
+                              this->POINTS_PER_COLOR * sizeof(GLfloat), nullptr);
         glEnableVertexAttribArray(this->COLOR_ATTRIB);
     }
 
@@ -76,42 +78,42 @@ void Cube::draw(GLuint VAO) const {
 
 void Cube::initVertices() {
     this->vertices = {
-            -1.0f,-1.0f,-1.0f, // triangle 1 : begin
-            -1.0f,-1.0f, 1.0f,
+            -1.0f, -1.0f, -1.0f, // triangle 1 : begin
+            -1.0f, -1.0f, 1.0f,
             -1.0f, 1.0f, 1.0f, // triangle 1 : end
-            1.0f, 1.0f,-1.0f, // triangle 2 : begin
-            -1.0f,-1.0f,-1.0f,
-            -1.0f, 1.0f,-1.0f, // triangle 2 : end
-            1.0f,-1.0f, 1.0f,
-            -1.0f,-1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f, 1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            -1.0f,-1.0f,-1.0f,
-            -1.0f,-1.0f,-1.0f,
+            1.0f, 1.0f, -1.0f, // triangle 2 : begin
+            -1.0f, -1.0f, -1.0f,
+            -1.0f, 1.0f, -1.0f, // triangle 2 : end
+            1.0f, -1.0f, 1.0f,
+            -1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f, 1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f, -1.0f,
             -1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f,-1.0f,
-            1.0f,-1.0f, 1.0f,
-            -1.0f,-1.0f, 1.0f,
-            -1.0f,-1.0f,-1.0f,
+            -1.0f, 1.0f, -1.0f,
+            1.0f, -1.0f, 1.0f,
+            -1.0f, -1.0f, 1.0f,
+            -1.0f, -1.0f, -1.0f,
             -1.0f, 1.0f, 1.0f,
-            -1.0f,-1.0f, 1.0f,
-            1.0f,-1.0f, 1.0f,
+            -1.0f, -1.0f, 1.0f,
+            1.0f, -1.0f, 1.0f,
             1.0f, 1.0f, 1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f, 1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f, 1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
             1.0f, 1.0f, 1.0f,
-            1.0f,-1.0f, 1.0f,
+            1.0f, -1.0f, 1.0f,
             1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f,-1.0f,
-            -1.0f, 1.0f,-1.0f,
+            1.0f, 1.0f, -1.0f,
+            -1.0f, 1.0f, -1.0f,
             1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f,-1.0f,
+            -1.0f, 1.0f, -1.0f,
             -1.0f, 1.0f, 1.0f,
             1.0f, 1.0f, 1.0f,
             -1.0f, 1.0f, 1.0f,
-            1.0f,-1.0f, 1.0f
+            1.0f, -1.0f, 1.0f
     };
 }
 

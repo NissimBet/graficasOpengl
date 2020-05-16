@@ -7,5 +7,5 @@ uniform float selected;
 uniform vec3 highlight;
 
 void main() {
-  FragColor = selected * highlight * Color;
+    FragColor = selected * highlight * Color;
 }

@@ -10,11 +10,15 @@
 class Cube : public GLObject {
 public:
     Cube(GLfloat, GLfloat, GLfloat);
+
     ~Cube();
 
     void bind(GLuint VAO) const override;
+
     void unbind() const override;
+
     void draw(GLuint VAO) const override;
+
 private:
     /**
      * function that initializes the vertices array

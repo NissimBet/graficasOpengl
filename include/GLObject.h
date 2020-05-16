@@ -11,20 +11,24 @@
 class GLObject {
 public:
     GLObject(GLuint PPV, GLuint PPC) : POINTS_PER_VERTEX(PPV), POINTS_PER_COLOR(PPC), verticesVBO(0), colorsVBO(0) {};
+
     /**
      * bind the array buffers to the given the vertex array object
      * @param VAO vertex array object to bind data buffers
      */
     virtual void bind(GLuint VAO) const = 0;
+
     /**
      * unbind the buffers
      */
     virtual void unbind() const = 0;
+
     /**
      * function that draws the defined object
      * @param VAO vertex array object to bind to before drawing
      */
     virtual void draw(GLuint VAO) const = 0;
+
     /**
      * set color vertices of object.
      * If number of points per color does not match the number of points per vertex and its size, do not assign to prevent errors
@@ -39,6 +43,7 @@ public:
             return false;
         }
     }
+
     void setColors(const GLfloat r, GLfloat g, GLfloat b) {
         this->colors = std::vector<GLfloat>(this->vertices.size());
         for (int i = 0; i < this->vertices.size() - 2; i += 3) {
@@ -47,6 +52,7 @@ public:
             this->colors[i + 2] = b;
         }
     }
+
 protected:
     // vertices VBO identifier
     GLuint verticesVBO;
