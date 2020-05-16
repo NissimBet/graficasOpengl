@@ -72,9 +72,7 @@ protected:
 
     // shader attribute locations for consistency
     const GLuint VERTEX_ATTRIB = 0;
-    const GLuint NORMAL_ATTRIB = 1;
-    const GLuint TEXTURE_ATTRIB = 2;
-    const GLuint COLOR_ATTRIB = 3;
+    const GLuint COLOR_ATTRIB = 1;
 };
 
 #endif //GRAFICASOPENGL_GLOBJECT_H

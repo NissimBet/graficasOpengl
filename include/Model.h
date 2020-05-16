@@ -10,7 +10,6 @@
 #include <GL/glew.h>
 #include <glm/vec3.hpp>
 #include <assimp/material.h>
-#include "Texture.h"
 #include "Mesh.h"
 #include "Shader.h"
 #include "WorldObject.h"
@@ -43,7 +42,6 @@ public:
     void translate(glm::vec3 translationMatrix) override;
 
 private:
-    std::vector<Texture> textures_loaded;
     std::vector<Mesh> meshes;
     std::string directory;
     std::string path;
@@ -54,10 +52,6 @@ private:
     void processNode(aiNode *node, const aiScene *scene);
 
     Mesh processMesh(aiMesh *mesh, const aiScene *scene);
-
-    std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, const std::string &typeName);
-
-
 };
 
 #endif //GRAFICASOPENGL_MODEL_H

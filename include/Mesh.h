@@ -8,20 +8,20 @@
 #include <vector>
 #include <GL/glew.h>
 #include "Vertex.h"
-#include "Texture.h"
 
 class Mesh {
 public:
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
 
-    Mesh(std::vector<Vertex>, std::vector<unsigned int>, std::vector<Texture>);
+    Mesh(std::vector<Vertex>, std::vector<unsigned int>);
 
-    void draw(GLuint);
+    void draw() const;
 
 private:
     GLuint VAO, VBO, EBO;
+    GLuint VERTEX_ATTRIB = 0;
+    GLuint COLOR_ATTRIB = 1;
 
     void setupMesh();
 };
