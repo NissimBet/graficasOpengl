@@ -1,7 +1,3 @@
-//
-// Created by nissi on 4/28/2020.
-//
-
 #include "Shader.h"
 #include <fstream>
 #include <string>

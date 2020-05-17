@@ -1,7 +1,3 @@
-//
-// Created by nissi on 5/3/2020.
-//
-
 #ifndef GRAFICASOPENGL_WORLDOBJECT_H
 #define GRAFICASOPENGL_WORLDOBJECT_H
 

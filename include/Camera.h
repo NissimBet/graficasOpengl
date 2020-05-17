@@ -1,7 +1,3 @@
-//
-// Created by nissi on 4/30/2020.
-//
-
 #ifndef GRAFICASOPENGL_CAMERA_H
 #define GRAFICASOPENGL_CAMERA_H
 
@@ -25,10 +21,10 @@ class Camera {
 public:
     // check for multiple keys pressed at once
     enum ContinuedCheckKeys {
-        KEY_UP = 0,        // Forward
-        KEY_DOWN = 1,    // Backward
-        KEY_LEFT = 2,    // Left
-        KEY_RIGHT = 3,    // Right
+        KEY_UP = 0,         // Forward
+        KEY_DOWN = 1,       // Backward
+        KEY_LEFT = 2,       // Left
+        KEY_RIGHT = 3,      // Right
         TOTAL_KEYS = 4
     };
 
@@ -100,17 +96,24 @@ public:
      */
     void handleEvent(Sint32 deltaX, Sint32 deltaY);
 
-    // move camera after event handling
+    /**
+     * Execute the movement of the camera given the time passed since las frame / movement
+     * @param deltaTime time since last movement / frame
+     */
     void moveCamera(float deltaTime);
 
 private:
-    // update front, up and right vectors
+    /**
+     * Update the camera view matrix and vectors cameraFront, cameraUp and cameraRight
+     */
     void updateCameraVectors();
 
-    // reset keys
+    /**
+     * Reset keys for constant keypress detection
+     */
     void resetConstantKeys();
 
-    // keys that need to be checked for constant input
+    // keys that need to be checked for constant input and multi-key movement (A+W)
     bool keys[TOTAL_KEYS];
 };
 

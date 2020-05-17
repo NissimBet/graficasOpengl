@@ -1,3 +1,17 @@
+/**
+ * This program uses Opengl and GLEW for rendering a scene.
+ * It uses SDL2 for the creation of the window and handling of events.
+ * For the loading of the blender objects and models Assimp is used.
+ * For matrix-related calculations, glm is used
+ *
+ * This program tries to recreate a scene from an image, previously rendered by blender.
+ * This program was created by:
+ *      Edgar López Villarreal
+ *      Francisco Javier Castro Zúñiga
+ *      José Cruz Flores Flores
+ *      Nissim Ariel Betesh Hassine
+ */
+
 #include <iostream>
 #include <array>
 #include <GL/glew.h>
@@ -99,23 +113,28 @@ int main(int argc, char *argv[]) {
     context = initializeGL(window);
     //
 
-    // Full Scene file
+    // obj files
     const std::string objCabin = "cabin.obj";
     const std::string objCableway = "cableway.obj";
     const std::string objSled = "sled.obj";
     const std::string objTree = "tree.obj";
 
+    // create shader
     Shader shader("shaders/vertexShader.glsl", "shaders/fragmentShader.glsl");
 
+    // initialize camera
     Camera mainCamera = Camera(glm::vec3(0.5f, 1.0f, 5.0f));
 
+    // create a cube to represent the floor
     Cube floor = Cube(1.0f, 1.0f, 1.0f);
 
+    // set the values for the floor
     glm::vec3 floorScale = glm::vec3(10.0f, 0.2f, 10.0f);
     glm::vec3 floorPosition = glm::vec3(-5.0f, -0.25f, -5.0f);
     glm::mat4 floorModel = glm::translate(glm::mat4(1), floorPosition);
     floorModel = glm::scale(floorModel, floorScale);
 
+    // create a VAO to draw the floor and bind to it
     GLuint floorVAO;
     glCreateVertexArrays(1, &floorVAO);
     floor.bind(floorVAO);
@@ -148,7 +167,7 @@ int main(int argc, char *argv[]) {
             (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT,       // screen aspect ratio
             0.1f,                                               // 0.1 minimum drawing range
             100.0f);                                             // 100 maximum drawing range
-
+    // set the initial projection and view matrics of the scene
     shader.use();
     shader.setMat4("projection", projectionMatrix);
     shader.setMat4("view", mainCamera.getViewMatrix());
@@ -159,7 +178,7 @@ int main(int argc, char *argv[]) {
 
     // enable perspective
     glEnable(GL_DEPTH_TEST);
-    // order by less value in the w
+    // order of drawing by the lower value in w
     glDepthFunc(GL_LESS);
 
     // program time

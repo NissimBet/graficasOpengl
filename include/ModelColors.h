@@ -1,7 +1,3 @@
-//
-// Created by jcfflores on 5/16/20.
-//
-
 #ifndef GRAFICASOPENGL_MODELCOLORS_H
 #define GRAFICASOPENGL_MODELCOLORS_H
 

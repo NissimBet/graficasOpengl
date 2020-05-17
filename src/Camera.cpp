@@ -1,7 +1,3 @@
-//
-// Created by nissi on 4/30/2020.
-//
-
 #include "Camera.h"
 
 void Camera::handleEvent(Camera_Movement direction, bool wasEventKeyPressed) {
@@ -78,6 +74,7 @@ void Camera::handleEvent(Sint32 deltaX, Sint32 deltaY) {
         pitch = -89.0f;
     }
 
+    // need to calculate new front, right and up vectors
     updateCameraVectors();
 }
 

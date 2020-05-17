@@ -1,7 +1,3 @@
-//
-// Created by jcfflores on 5/12/20.
-//
-
 #include "Model.h"
 #include "Mesh.h"
 #include "Vertex.h"
@@ -39,8 +35,9 @@ Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scali
     this->scale(scaling);
 }
 
-void Model::translate(glm::vec3 translationMatrix) {
-    WorldObject::translate(translationMatrix);
+void Model::translate(glm::vec3 translationVector) {
+    // translate the object
+    WorldObject::translate(translationVector);
 #ifndef NDEBUG
     std::cout << "Position of " << path << " at: ";
     std::cout << "(" << position.x << "," << position.y << "," << position.z << ")" << std::endl;
@@ -76,23 +73,31 @@ void Model::handleEvent(const SDL_Event &event) {
 }
 
 void Model::draw(const Shader &program, bool selected) {
+    // bind the shader
     program.use();
+    // set the model matrix of the object
     program.setMat4("model", this->modelMatrix);
+    // set if the object is currently selected
     program.setFloat("selected", selected ? 1.0f : 0.55f);
+    // set highlighting color
     program.setVec3("highlight", glm::vec3(0.75f, 0.75f, 0.75f));
+    // draw the meshes corresponding to the model
     for (auto &mesh : meshes) {
         mesh.draw();
     }
 }
 
 void Model::loadModel() {
+    // initialize and import obj of the model
     Assimp::Importer import;
     const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
+    // if the scene could not be loaded, throw error
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         throw ModelException(path, import.GetErrorString());
     }
 
+    // process the main node of the scene
     processNode(scene->mRootNode, scene);
 }
 
@@ -124,11 +129,14 @@ Mesh Model::processMesh(aiMesh *mesh) {
 #endif
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
+        // set the mesh vertices
         glm::vec3 vector;
         vector.x = mesh->mVertices[i].x;
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
+        // set the mesh colors
         glm::vec3 vColor;
+        // if a color could be bound to the mesh, use it, if not, use the model default color
         auto mColor = colorMap.find(meshName);
         if(mColor == colorMap.end()) {
             vColor = this->color;
@@ -139,6 +147,7 @@ Mesh Model::processMesh(aiMesh *mesh) {
         vertices.push_back(vertex);
     }
 
+    // set the indices of the vertices
     for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++) {

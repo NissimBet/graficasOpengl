@@ -1,7 +1,3 @@
-//
-// Created by nissi on 5/2/2020.
-//
-
 #ifndef GRAFICASOPENGL_GLOBJECT_H
 #define GRAFICASOPENGL_GLOBJECT_H
 
@@ -10,6 +6,11 @@
 
 class GLObject {
 public:
+    /**
+     * Initialize the variables of the class
+     * @param PPV Number of points per vertex
+     * @param PPC Number of points per color
+     */
     GLObject(GLuint PPV, GLuint PPC) : POINTS_PER_VERTEX(PPV), POINTS_PER_COLOR(PPC), verticesVBO(0), colorsVBO(0) {};
 
     /**
@@ -44,6 +45,12 @@ public:
         }
     }
 
+    /**
+     * Set the color of the vertices of the object
+     * @param r amount of red 0-255
+     * @param g amount of green 0-255
+     * @param b amount of blue 0-255
+     */
     void setColors(const GLfloat r, GLfloat g, GLfloat b) {
         this->colors = std::vector<GLfloat>(this->vertices.size());
         for (int i = 0; i < this->vertices.size() - 2; i += 3) {

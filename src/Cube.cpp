@@ -1,22 +1,23 @@
-//
-// Created by nissi on 5/2/2020.
-//
-
 #include "Cube.h"
 
 Cube::Cube(GLfloat r, GLfloat g, GLfloat b) : GLObject(3, 3) {
+    // initialize the colors vector
     this->colors = std::vector<GLfloat>();
+    // initialize the vertices for the cube
     this->initVertices();
+    // set the colors to the whole cube
     this->setColors(r, g, b);
 
     // unbind any VAO, to prevent unwanted behavior when generating the VBOs
     glBindVertexArray(0);
 
+    // generate the VBOs
     glGenBuffers(1, &this->verticesVBO);
     glGenBuffers(1, &this->colorsVBO);
 }
 
 Cube::~Cube() {
+    // delete the VBOs
     glDeleteBuffers(GL_ARRAY_BUFFER, &(this->verticesVBO));
     glDeleteBuffers(GL_ARRAY_BUFFER, &(this->colorsVBO));
 }
@@ -78,42 +79,42 @@ void Cube::draw(GLuint VAO) const {
 
 void Cube::initVertices() {
     this->vertices = {
-            -1.0f, -1.0f, -1.0f, // triangle 1 : begin
-            -1.0f, -1.0f, 1.0f,
-            -1.0f, 1.0f, 1.0f, // triangle 1 : end
-            1.0f, 1.0f, -1.0f, // triangle 2 : begin
+            -1.0f, -1.0f, -1.0f,        // triangle 1 : begin
+            -1.0f, -1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,        // triangle 1 : end
+             1.0f,  1.0f, -1.0f,        // triangle 2 : begin
             -1.0f, -1.0f, -1.0f,
-            -1.0f, 1.0f, -1.0f, // triangle 2 : end
-            1.0f, -1.0f, 1.0f,
+            -1.0f,  1.0f, -1.0f,        // triangle 2 : end
+             1.0f, -1.0f,  1.0f,        // triangle 3 : begin
             -1.0f, -1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f, 1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f, -1.0f,
-            1.0f, -1.0f, 1.0f,
-            -1.0f, -1.0f, 1.0f,
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, 1.0f, 1.0f,
-            -1.0f, -1.0f, 1.0f,
-            1.0f, -1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f, 1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f, -1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, -1.0f,
-            -1.0f, 1.0f, -1.0f,
-            1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f, -1.0f,
-            -1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f, 1.0f,
-            1.0f, -1.0f, 1.0f
+             1.0f, -1.0f, -1.0f,        // triangle 3 : end
+             1.0f,  1.0f, -1.0f,        // triangle 4 : begin
+             1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f, -1.0f,        // triangle 4 : end
+            -1.0f, -1.0f, -1.0f,        // triangle 5 : begin
+            -1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f, -1.0f,        // triangle 5 : end
+             1.0f, -1.0f,  1.0f,        // triangle 6 : begin
+            -1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f, -1.0f,        // triangle 6 : end
+            -1.0f,  1.0f,  1.0f,        // triangle 7 : begin
+            -1.0f, -1.0f,  1.0f,
+             1.0f, -1.0f,  1.0f,        // triangle 7 : end
+             1.0f,  1.0f,  1.0f,        // triangle 8 : begin
+             1.0f, -1.0f, -1.0f,
+             1.0f,  1.0f, -1.0f,        // triangle 8 : end
+             1.0f, -1.0f, -1.0f,        // triangle 9 : begin
+             1.0f,  1.0f,  1.0f,
+             1.0f, -1.0f,  1.0f,        // triangle 9 : end
+             1.0f,  1.0f,  1.0f,        // triangle 10 : begin
+             1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,        // triangle 10 : end
+             1.0f,  1.0f,  1.0f,        // triangle 11 : begin
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f,  1.0f,        // triangle 11 : end
+             1.0f,  1.0f,  1.0f,        // triangle 12 : begin
+            -1.0f,  1.0f,  1.0f,
+             1.0f, -1.0f,  1.0f         // triangle 12 : end
     };
 }
 

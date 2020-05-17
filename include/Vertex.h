@@ -1,7 +1,3 @@
-//
-// Created by jcfflores on 5/12/20.
-//
-
 #ifndef GRAFICASOPENGL_VERTEX_H
 #define GRAFICASOPENGL_VERTEX_H
 

@@ -1,7 +1,3 @@
-//
-// Created by nissim on 4/28/2020.
-//
-
 #ifndef GRAFICASOPENGL_SHADER_H
 #define GRAFICASOPENGL_SHADER_H
 
@@ -30,19 +26,48 @@ public:
      */
     Shader(const std::string &, const std::string &);
 
+    /**
+     * bind the shader to opengl context
+     */
     void use() const;
 
+    // id of the program of the compiled shader
     GLuint ID;
 
-    void setBool(const std::string &, bool) const;
+    /**
+     * set a boolean uniform of the shader to a value
+     * @param name of the uniform
+     * @param value of the uniform
+     */
+    void setBool(const std::string &name, bool value) const;
 
-    void setInt(const std::string &, int) const;
+    /**
+     * set an int uniform of the shader to a value
+     * @param name of the uniform
+     * @param value of the uniform
+     */
+    void setInt(const std::string &name, int value) const;
 
-    void setFloat(const std::string &, float) const;
+    /**
+     * set a float uniform of the shader to a value
+     * @param name of the uniform
+     * @param value of the uniform
+     */
+    void setFloat(const std::string &name, float value) const;
 
-    void setMat4(const std::string &, glm::mat4) const;
+    /**
+     * set a 4x4 matrix uniform of the shader to a value
+     * @param name of the uniform
+     * @param value of the uniform
+     */
+    void setMat4(const std::string &name, glm::mat4 value) const;
 
-    void setVec3(const std::string &, glm::vec3) const;
+    /**
+     * set a 3 value vector uniform of the shader to a value
+     * @param name of the uniform
+     * @param value of the uniform
+     */
+    void setVec3(const std::string &name, glm::vec3 value) const;
 };
 
 
