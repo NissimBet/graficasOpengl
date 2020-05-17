@@ -12,7 +12,7 @@
 #include <sstream>
 #include <utility>
 
-#ifdef DEBUG
+#ifndef NDEBUG
 #include <iostream>
 #endif
 
@@ -61,7 +61,7 @@ Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scali
 
 void Model::translate(glm::vec3 translationMatrix) {
     WorldObject::translate(translationMatrix);
-#ifdef DEBUG
+#ifndef NDEBUG
     std::cout << "Position of " << path << " at: ";
     std::cout << "(" << position.x << "," << position.y << "," << position.z << ")" << std::endl;
 #endif
@@ -138,7 +138,7 @@ Mesh Model::processMesh(aiMesh *mesh) {
     std::string meshName(mesh->mName.C_Str());
     trim(meshName);
 
-#ifdef DEBUG
+#ifndef NDEBUG
     if (path.find("tree") == std::string::npos) {
         std::cout << "Mesh name: " << meshName << std::endl;
     }

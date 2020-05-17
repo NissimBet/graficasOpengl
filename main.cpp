@@ -13,8 +13,8 @@
 #include "ModelColors.h"
 
 // Screen size
-constexpr int WINDOW_WIDTH = 840;
-constexpr int WINDOW_HEIGHT = 480;
+constexpr int WINDOW_WIDTH = 1960;
+constexpr int WINDOW_HEIGHT = 1080;
 
 /**
  * Function that initializes SDL and its subsystems if any

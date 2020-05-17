@@ -7,7 +7,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#ifdef DEBUG
+#ifndef NDEBUG
 #include <iostream>
 #endif
 #include <glm/ext.hpp>
@@ -53,7 +53,7 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
     int infoLogLength;
 
     // compile vertex shader
-#ifdef DEBUG
+#ifndef NDEBUG
     std::cout << "Compiling shader " << vertexFilePath << std::endl;
 #endif
     char const *vertexSourcePointer = vertexShaderCode.c_str();
@@ -63,14 +63,16 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
     // check vertex shader compilation status
     glGetShaderiv(VertexShaderId, GL_COMPILE_STATUS, &result);
     glGetShaderiv(VertexShaderId, GL_INFO_LOG_LENGTH, &infoLogLength);
+#ifndef NDEBUG
     if (infoLogLength > 0) {
         std::vector<char> vertexShaderErrorMessage(infoLogLength + 1);
         glGetShaderInfoLog(VertexShaderId, infoLogLength, nullptr, &vertexShaderErrorMessage.at(0));
         std::cout << &vertexShaderErrorMessage.at(0) << std::endl;
     }
+#endif
 
     // compile fragment shader
-#ifdef DEBUG
+#ifndef NDEBUG
     std::cout << "Compiling shader " << fragmentFilePath << std::endl;
 #endif
     char const *fragmentSourcePointer = fragmentShaderCode.c_str();
@@ -80,13 +82,15 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
     // check fragment shader compilation status
     glGetShaderiv(FragmentShaderId, GL_COMPILE_STATUS, &result);
     glGetShaderiv(FragmentShaderId, GL_INFO_LOG_LENGTH, &infoLogLength);
+#ifndef NDEBUG
     if (infoLogLength > 0) {
         std::vector<char> fragmentShaderErrorMessage(infoLogLength + 1);
         glGetShaderInfoLog(FragmentShaderId, infoLogLength, nullptr, &fragmentShaderErrorMessage.at(0));
         std::cout << &fragmentShaderErrorMessage.at(0) << std::endl;
     }
+#endif
 
-#ifdef DEBUG
+#ifndef NDEBUG
     std::cout << "Linking Program " << std::endl;
 #endif
 
@@ -99,11 +103,13 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
     // chek link status
     glGetProgramiv(programId, GL_LINK_STATUS, &result);
     glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &infoLogLength);
+#ifndef NDEBUG
     if (infoLogLength < 0) {
         std::vector<char> ProgramErrorMessage(infoLogLength + 1);
         glGetProgramInfoLog(programId, infoLogLength, nullptr, &ProgramErrorMessage[0]);
         std::cout << &ProgramErrorMessage.at(0);
     }
+#endif
 
     // detach and delete shaders, they are not needed
     glDetachShader(programId, VertexShaderId);
