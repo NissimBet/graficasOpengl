@@ -16,26 +16,6 @@
 #include <iostream>
 #endif
 
-// trim from start (in place)
-static inline void ltrim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
-        return !std::isspace(ch);
-    }));
-}
-
-// trim from end (in place)
-static inline void rtrim(std::string &s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
-        return !std::isspace(ch);
-    }).base(), s.end());
-}
-
-// trim from both ends (in place)
-static inline void trim(std::string &s) {
-    ltrim(s);
-    rtrim(s);
-}
-
 ModelException::ModelException(const std::string &modelName, const char *errorInfo) {
     std::ostringstream os;
     os << "Failed to load model at " << modelName << " ";
@@ -136,7 +116,6 @@ Mesh Model::processMesh(aiMesh *mesh) {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::string meshName(mesh->mName.C_Str());
-    trim(meshName);
 
 #ifndef NDEBUG
     if (path.find("tree") == std::string::npos) {
