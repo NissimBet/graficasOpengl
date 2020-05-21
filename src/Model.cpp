@@ -23,17 +23,24 @@ const char *ModelException::what() const noexcept {
     return errorMessage.c_str();
 }
 
-Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap) : WorldObject(glm::vec3(0.0f)),
-                                                                                   color(color), path(std::move(path)), colorMap(std::move(colorMap)) {
+Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap, std::unordered_map<std::string, unsigned int> textureMap)
+        : WorldObject(glm::vec3(0.0f)), color(color), path(std::move(path)), colorMap(std::move(colorMap)), textureMap(std::move(textureMap)), textureID(0) {
     loadModel();
     this->scale(scaling);
 }
 
-Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap)
-        : WorldObject(position), path(std::move(path)), color(color), colorMap(std::move(colorMap)) {
+Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap, std::unordered_map<std::string, unsigned int> textureMap)
+        : WorldObject(position), path(std::move(path)), color(color), colorMap(std::move(colorMap)), textureMap(std::move(textureMap)), textureID(0) {
     loadModel();
     this->scale(scaling);
 }
+
+Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID)
+        : WorldObject(glm::vec3(0.0f)), path(std::move(path)), color(color), textureID(textureID) {
+    loadModel();
+    this->scale(scaling);
+}
+
 
 void Model::translate(glm::vec3 translationVector) {
     // translate the object
@@ -83,7 +90,7 @@ void Model::draw(const Shader &program, bool selected) {
     program.setVec3("highlight", glm::vec3(0.75f, 0.75f, 0.75f));
     // draw the meshes corresponding to the model
     for (auto &mesh : meshes) {
-        mesh.draw();
+        mesh.draw(program);
     }
 }
 
@@ -121,6 +128,7 @@ Mesh Model::processMesh(aiMesh *mesh) {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::string meshName(mesh->mName.C_Str());
+    unsigned int meshTexID;
 
 #ifndef NDEBUG
     if (path.find("tree") == std::string::npos) {
@@ -143,7 +151,13 @@ Mesh Model::processMesh(aiMesh *mesh) {
         } else {
             vColor = mColor->second;
         }
-        Vertex vertex = {vector, vColor};
+        // set the coordinates for the textures
+        glm::vec2 vTextures = {0.0, 0.0};
+        if (mesh->mTextureCoords[0]) {
+            vTextures.x = mesh->mTextureCoords[0][i].x;
+            vTextures.y = mesh->mTextureCoords[0][i].y;
+        }
+        Vertex vertex = {vector, vColor, vTextures};
         vertices.push_back(vertex);
     }
 
@@ -155,5 +169,14 @@ Mesh Model::processMesh(aiMesh *mesh) {
         }
     }
 
-    return Mesh(vertices, indices);
+    auto texID = textureMap.find(meshName);
+    if (texID == textureMap.end()) {
+        meshTexID = this->textureID;
+    }
+    else {
+        meshTexID = texID->second;
+        std::cout << "Texture bound to mesh " << meshName << '\t' << meshTexID << std::endl;
+    }
+
+    return Mesh(vertices, indices, meshTexID);
 }

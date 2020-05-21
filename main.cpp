@@ -25,10 +25,11 @@
 #include <Cube.h>
 #include "Model.h"
 #include "ModelColors.h"
+#include "ModelTextures.h"
 
 // Screen size
-constexpr int WINDOW_WIDTH = 1920;
-constexpr int WINDOW_HEIGHT = 1080;
+constexpr int WINDOW_WIDTH = 720;
+constexpr int WINDOW_HEIGHT = 480;
 
 /**
  * Function that initializes SDL and its subsystems if any
@@ -139,17 +140,19 @@ int main(int argc, char *argv[]) {
     glCreateVertexArrays(1, &floorVAO);
     floor.bind(floorVAO);
 
+    loadTextures();
+    std::cout << "Textures Loaded" << std::endl;
     glm::vec3 leafGreen = glm::vec3(0.322, 0.42, 0.176);
 
     // Import models
     std::array<Model, 7> objects = {
-            Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f), cabinColors),
-            Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f), cablewayColors),
-            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f), sledColors),
-            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
-            Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f), leafGreen),
-            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
-            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen),
+            Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f), cabinColors, cabinTextures),
+            Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f), cablewayColors, cablewayTextures),
+            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f), sledColors, sledTextures),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen, leafTexture),
+            Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f), leafGreen, leafTexture),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen, leafTexture),
+            Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen, leafTexture),
     };
 
     objects[0].translate(glm::vec3(0.0f, -0.05f, -8.0f));

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <GL/glew.h>
+#include "Shader.h"
 #include "Vertex.h"
 
 class Mesh {
@@ -11,23 +12,26 @@ public:
     std::vector<Vertex> vertices;
     // indices of the faces corresponding to the vertices that create each triangle of the mesh
     std::vector<unsigned int> indices;
+    // id of the texture for the mesh
+    unsigned int textureID;
 
     /**
      * Constructor of the mesh, indicating the vertices that create it and the order of the vertices that create each face
      * @param vertices vector of vertices that make up the mesh
      * @param indices indices that indicate the order of drawing of the vertices to crete the mesh
      */
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, unsigned int textureID);
     /**
      * Draw the mesh
      */
-    void draw() const;
+    void draw(Shader shader) const;
 
 private:
     // VAO, VBO and EBO corresponding to the mesh
     GLuint VAO, VBO, EBO;
     GLuint VERTEX_ATTRIB = 0;
     GLuint COLOR_ATTRIB = 1;
+    GLuint TEXTURE_ATTRIB = 2;
 
     /**
      * setup the mesh by binding the EBO and VBO buffers to the VAO and the filling the data of the buffers
