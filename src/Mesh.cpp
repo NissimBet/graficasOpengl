@@ -1,6 +1,8 @@
 #include "Mesh.h"
 #include <utility>
 
+#include <iostream>
+
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, unsigned int textureID) : vertices(
         std::move(vertices)), indices(std::move(indices)), textureID(textureID) {
     // generate buffers and VAO
@@ -49,5 +51,5 @@ void Mesh::draw(Shader shader) const {
 
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
-    glActiveTexture(GL_TEXTURE1);
+    glActiveTexture(GL_TEXTURE0);
 }

@@ -16,6 +16,7 @@ unsigned int metalTexture = 0;
 unsigned int ropeTexture = 0;
 unsigned int leatherTexture = 0;
 unsigned int leafTexture = 0;
+unsigned int snowTexture = 0;
 
 std::unordered_map<std::string,unsigned int> cabinTextures;
 std::unordered_map<std::string, unsigned int> sledTextures;
@@ -30,7 +31,8 @@ void loadTextures() {
     std::string sledMetalImage = "textures/metal001.jpg";
     std::string cablewayRope = "textures/rope001.jpg";
     std::string cablewayLeather = "textures/leather001.jpg";
-    std::string leafImage = "textures/leaf001.jpg";
+    std::string leafImage = "textures/leaf002.jpg";
+    std::string snowImage = "textures/snow001.jpg";
 
     wallTexture = loadTextureFromFile(wallImage.c_str());
     floorTexture = loadTextureFromFile(floorImage.c_str());
@@ -40,6 +42,7 @@ void loadTextures() {
     ropeTexture = loadTextureFromFile(cablewayRope.c_str());
     leatherTexture = loadTextureFromFile(cablewayLeather.c_str());
     leafTexture = loadTextureFromFile(leafImage.c_str());
+    snowTexture = loadTextureFromFile(snowImage.c_str());
 
     cabinTextures = {
             {"Floor", floorTexture},

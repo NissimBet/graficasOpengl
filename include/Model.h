@@ -47,7 +47,8 @@ public:
     Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap = {}, std::unordered_map<std::string, unsigned int> textureMap = {});
 
 
-    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID);
+    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID, std::unordered_map<std::string, unsigned int> textureMap = {});
+
     /**
      * draw the model using the passed shader
      * @param shader shader program initialized by opengl

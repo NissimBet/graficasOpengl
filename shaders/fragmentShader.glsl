@@ -11,5 +11,5 @@ uniform vec3 highlight;
 uniform sampler2D meshTexture;
 
 void main() {
-    FragColor = texture(meshTexture,TexCoord);
+    FragColor = texture(meshTexture,TexCoord) * selected * vec4(highlight, 1.0);
 }

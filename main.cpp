@@ -146,9 +146,9 @@ int main(int argc, char *argv[]) {
 
     // Import models
     std::array<Model, 7> objects = {
-            Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f), cabinColors, cabinTextures),
-            Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f), cablewayColors, cablewayTextures),
-            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f), sledColors, sledTextures),
+            Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f), wallTexture, cabinTextures),
+            Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f), metalTexture, cablewayTextures),
+            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f), metalTexture, sledTextures),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen, leafTexture),
             Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f), leafGreen, leafTexture),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen, leafTexture),
@@ -156,6 +156,7 @@ int main(int argc, char *argv[]) {
     };
 
     objects[0].translate(glm::vec3(0.0f, -0.05f, -8.0f));
+    objects[0].rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
     objects[1].translate(glm::vec3(0.0f, 25.0f, 0.0f));
     objects[3].translate(glm::vec3(-7.0f, 0.0f, -14.0f));
     objects[4].translate(glm::vec3(-6.0f, 0.0f, -5.0f));
@@ -247,6 +248,11 @@ int main(int argc, char *argv[]) {
 
         shader.setFloat("selected", 1.0f);
         shader.setMat4("model", floorModel);
+
+
+        glActiveTexture(GL_TEXTURE0);
+        shader.setInt("meshTexture", 0);
+        glBindTexture(GL_TEXTURE_2D, snowTexture);
         floor.draw(floorVAO);
 
 

@@ -35,8 +35,8 @@ Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scali
     this->scale(scaling);
 }
 
-Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID)
-        : WorldObject(glm::vec3(0.0f)), path(std::move(path)), color(color), textureID(textureID) {
+Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID, std::unordered_map<std::string, unsigned int> textureMap)
+        : WorldObject(glm::vec3(0.0f)), path(std::move(path)), color(color), textureID(textureID), textureMap(std::move(textureMap)) {
     loadModel();
     this->scale(scaling);
 }
@@ -87,7 +87,7 @@ void Model::draw(const Shader &program, bool selected) {
     // set if the object is currently selected
     program.setFloat("selected", selected ? 1.0f : 0.55f);
     // set highlighting color
-    program.setVec3("highlight", glm::vec3(0.75f, 0.75f, 0.75f));
+    program.setVec3("highlight", glm::vec3(0.75, 0.75, 0.75));
     // draw the meshes corresponding to the model
     for (auto &mesh : meshes) {
         mesh.draw(program);
@@ -171,12 +171,13 @@ Mesh Model::processMesh(aiMesh *mesh) {
 
     auto texID = textureMap.find(meshName);
     if (texID == textureMap.end()) {
+//        std::cout << "Texture bound to mesh " << meshName << '\t' << this->textureID << std::endl;
         meshTexID = this->textureID;
     }
     else {
         meshTexID = texID->second;
-        std::cout << "Texture bound to mesh " << meshName << '\t' << meshTexID << std::endl;
     }
+    std::cout << "Texture bound to mesh " << meshName << '\t' << meshTexID << std::endl;
 
     return Mesh(vertices, indices, meshTexID);
 }
