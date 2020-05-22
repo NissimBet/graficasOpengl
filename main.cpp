@@ -28,8 +28,13 @@
 #include "ModelTextures.h"
 
 // Screen size
+#ifdef NDEBUG
+constexpr int WINDOW_WIDTH = 1920;
+constexpr int WINDOW_HEIGHT = 1080;
+#else
 constexpr int WINDOW_WIDTH = 720;
 constexpr int WINDOW_HEIGHT = 480;
+#endif
 
 /**
  * Function that initializes SDL and its subsystems if any
@@ -141,7 +146,9 @@ int main(int argc, char *argv[]) {
     floor.bind(floorVAO);
 
     loadTextures();
+#ifndef NDEBUG
     std::cout << "Textures Loaded" << std::endl;
+#endif
     glm::vec3 leafGreen = glm::vec3(0.322, 0.42, 0.176);
 
     // Import models

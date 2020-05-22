@@ -177,7 +177,9 @@ Mesh Model::processMesh(aiMesh *mesh) {
     else {
         meshTexID = texID->second;
     }
+#ifndef NDEBUG
     std::cout << "Texture bound to mesh " << meshName << '\t' << meshTexID << std::endl;
+#endif
 
     return Mesh(vertices, indices, meshTexID);
 }

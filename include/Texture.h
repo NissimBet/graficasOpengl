@@ -46,14 +46,12 @@ unsigned int loadTextureFromFile(const char * path) {
         // texture filtering
         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-
-        stbi_image_free(data);
     }
     else {
         std::cout << "Failed to load texture image at " << path << std::endl;
         std::cout << stbi_failure_reason() << std::endl;
-        stbi_image_free(data);
     }
+    stbi_image_free(data);
 
     return textureID;
 }
