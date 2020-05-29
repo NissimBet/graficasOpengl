@@ -35,7 +35,9 @@ public:
      * @param color initial color of the model
      * @param colorMap mapping of a mesh (name) and its corresponding color
      */
-    explicit Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap = {}, std::unordered_map<std::string, unsigned int> textureMap = {});
+    explicit Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color,
+                   std::unordered_map<std::string, glm::vec3> colorMap = {},
+                   std::unordered_map<std::string, unsigned int> textureMap = {});
 
     /**
      * Constructor of the model without specifying the position
@@ -44,10 +46,13 @@ public:
      * @param color initial color of the model
      * @param colorMap mapping of a mesh (name) and its corresponding color
      */
-    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap = {}, std::unordered_map<std::string, unsigned int> textureMap = {});
+    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color,
+          std::unordered_map<std::string, glm::vec3> colorMap = {},
+          std::unordered_map<std::string, unsigned int> textureMap = {});
 
 
-    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID, std::unordered_map<std::string, unsigned int> textureMap = {});
+    Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID,
+          std::unordered_map<std::string, unsigned int> textureMap = {});
 
     /**
      * draw the model using the passed shader

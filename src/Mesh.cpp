@@ -35,7 +35,8 @@ void Mesh::setupMesh() {
 
     // vertex color color coord
     glEnableVertexAttribArray(TEXTURE_ATTRIB);
-    glVertexAttribPointer(TEXTURE_ATTRIB, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *) offsetof(Vertex, TextureCoords));
+    glVertexAttribPointer(TEXTURE_ATTRIB, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                          (void *) offsetof(Vertex, TextureCoords));
     // unbind VAO
     glBindVertexArray(0);
 }

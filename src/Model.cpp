@@ -9,7 +9,9 @@
 #include <utility>
 
 #ifndef NDEBUG
+
 #include <iostream>
+
 #endif
 
 ModelException::ModelException(const std::string &modelName, const char *errorInfo) {
@@ -23,20 +25,28 @@ const char *ModelException::what() const noexcept {
     return errorMessage.c_str();
 }
 
-Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap, std::unordered_map<std::string, unsigned int> textureMap)
-        : WorldObject(glm::vec3(0.0f)), color(color), path(std::move(path)), colorMap(std::move(colorMap)), textureMap(std::move(textureMap)), textureID(0) {
+Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color,
+             std::unordered_map<std::string, glm::vec3> colorMap,
+             std::unordered_map<std::string, unsigned int> textureMap)
+        : WorldObject(glm::vec3(0.0f)), color(color), path(std::move(path)), colorMap(std::move(colorMap)),
+          textureMap(std::move(textureMap)), textureID(0) {
     loadModel();
     this->scale(scaling);
 }
 
-Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color, std::unordered_map<std::string, glm::vec3> colorMap, std::unordered_map<std::string, unsigned int> textureMap)
-        : WorldObject(position), path(std::move(path)), color(color), colorMap(std::move(colorMap)), textureMap(std::move(textureMap)), textureID(0) {
+Model::Model(std::string path, const glm::vec3 &position, const glm::vec3 &scaling, const glm::vec3 &color,
+             std::unordered_map<std::string, glm::vec3> colorMap,
+             std::unordered_map<std::string, unsigned int> textureMap)
+        : WorldObject(position), path(std::move(path)), color(color), colorMap(std::move(colorMap)),
+          textureMap(std::move(textureMap)), textureID(0) {
     loadModel();
     this->scale(scaling);
 }
 
-Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID, std::unordered_map<std::string, unsigned int> textureMap)
-        : WorldObject(glm::vec3(0.0f)), path(std::move(path)), color(color), textureID(textureID), textureMap(std::move(textureMap)) {
+Model::Model(std::string path, const glm::vec3 &scaling, const glm::vec3 &color, unsigned int textureID,
+             std::unordered_map<std::string, unsigned int> textureMap)
+        : WorldObject(glm::vec3(0.0f)), path(std::move(path)), color(color), textureID(textureID),
+          textureMap(std::move(textureMap)) {
     loadModel();
     this->scale(scaling);
 }
@@ -142,7 +152,7 @@ Mesh Model::processMesh(aiMesh *mesh) {
         glm::vec3 vColor;
         // if a color could be bound to the mesh, use it, if not, use the model default color
         auto mColor = colorMap.find(meshName);
-        if(mColor == colorMap.end()) {
+        if (mColor == colorMap.end()) {
             vColor = this->color;
         } else {
             vColor = mColor->second;
@@ -168,8 +178,7 @@ Mesh Model::processMesh(aiMesh *mesh) {
     auto texID = textureMap.find(meshName);
     if (texID == textureMap.end()) {
         meshTexID = this->textureID;
-    }
-    else {
+    } else {
         meshTexID = texID->second;
     }
 #ifndef NDEBUG

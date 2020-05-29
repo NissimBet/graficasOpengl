@@ -6,6 +6,7 @@
 #define GRAFICASOPENGL_TEXTURE_H
 
 #define STB_IMAGE_IMPLEMENTATION
+
 #include "stb_image.h"
 
 #include <string>
@@ -15,21 +16,19 @@ struct Texture {
     unsigned int id;
 };
 
-unsigned int loadTextureFromFile(const char * path) {
+unsigned int loadTextureFromFile(const char *path) {
     unsigned int textureID;
     glGenTextures(1, &textureID);
 
     int width, height, components;
-    unsigned char * data = stbi_load(path, &width, &height, &components, 0);
+    unsigned char *data = stbi_load(path, &width, &height, &components, 0);
     if (data) {
         GLenum format;
-        if(components == 1) {
+        if (components == 1) {
             format = GL_RED;
-        }
-        else if (components == 3) {
+        } else if (components == 3) {
             format = GL_RGB;
-        }
-        else if (components == 4) {
+        } else if (components == 4) {
             format = GL_RGBA;
         }
 //        std::cout << "Bind Texture " << path << ' ' << textureID << '\t' << glGetError() << std::endl;
@@ -41,13 +40,12 @@ unsigned int loadTextureFromFile(const char * path) {
         glGenerateMipmap(GL_TEXTURE_2D);
 
         // texture wrapping
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         // texture filtering
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-    }
-    else {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    } else {
         std::cerr << "Failed to load texture image at " << path << std::endl;
         std::cerr << stbi_failure_reason() << std::endl;
     }

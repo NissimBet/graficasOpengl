@@ -3,9 +3,13 @@
 #include <string>
 #include <sstream>
 #include <vector>
+
 #ifndef NDEBUG
+
 #include <iostream>
+
 #endif
+
 #include <glm/ext.hpp>
 #include <GL/glew.h>
 #include <utility>

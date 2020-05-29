@@ -21,6 +21,7 @@ public:
      * @param indices indices that indicate the order of drawing of the vertices to crete the mesh
      */
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, unsigned int textureID);
+
     /**
      * Draw the mesh
      */

@@ -25,7 +25,7 @@ unsigned int cableFloorTexture = 0;
 unsigned int chairsTexture = 0;
 unsigned int roofCableTexture = 0;
 
-std::unordered_map<std::string,unsigned int> cabinTextures;
+std::unordered_map<std::string, unsigned int> cabinTextures;
 std::unordered_map<std::string, unsigned int> sledTextures;
 std::unordered_map<std::string, unsigned int> cablewayTextures;
 
@@ -67,13 +67,13 @@ void loadTextures() {
 
 
     cabinTextures = {
-            {"Floor", floorTexture},
-            {"Roof_3", roofTexture},
-            {"Roof_4", roofTexture},
-            {"Chimney_1", brickTexture},
-            {"Chimney_2", brickTexture},
-            {"Chimney_3", brickTexture},
-            {"Chimney_4", brickTexture},
+            {"Floor",            floorTexture},
+            {"Roof_3",           roofTexture},
+            {"Roof_4",           roofTexture},
+            {"Chimney_1",        brickTexture},
+            {"Chimney_2",        brickTexture},
+            {"Chimney_3",        brickTexture},
+            {"Chimney_4",        brickTexture},
             {"Chimney_Border_1", brickTexture},
             {"Chimney_Border_2", brickTexture},
             {"Chimney_Border_3", brickTexture},
@@ -94,21 +94,21 @@ void loadTextures() {
 
     cablewayTextures = {
             {"TUBEUnionBetweenCableWayAndRope_Cylinder", metalTexture},
-            {"LightBulb_Sphere", lightbulbTexture},
-            {"Rope1_Cube.039", cableTexture},
-            {"Rope2_Cube.038", cableTexture},
-            {"Roof_Cube.027", roofCableTexture},
-            {"Floor_Cube.026",  cableFloorTexture},
-            {"Backrest1_Cube.029", leatherTexture},
-            {"Backrest2_Cube.028", leatherTexture},
-            {"Chair1TopFace_Cube.030", leatherTexture},
-            {"Chair2TopFace_Cube.034", leatherTexture},
-            {"Chair1FaceIn_Cube.031", leatherTexture},
-            {"Chair2FaceIn_Cube.035", leatherTexture},
-            {"Chair2LateralFace1_Cube.036", chairsTexture},
-            {"Chair1LateralFace2_Cube.037", chairsTexture},
-            {"Chair1LateralFace2.001_Cube.033", chairsTexture},
-            {"Chair1LateralFace1_Cube.032", chairsTexture},
+            {"LightBulb_Sphere",                         lightbulbTexture},
+            {"Rope1_Cube.039",                           cableTexture},
+            {"Rope2_Cube.038",                           cableTexture},
+            {"Roof_Cube.027",                            roofCableTexture},
+            {"Floor_Cube.026",                           cableFloorTexture},
+            {"Backrest1_Cube.029",                       leatherTexture},
+            {"Backrest2_Cube.028",                       leatherTexture},
+            {"Chair1TopFace_Cube.030",                   leatherTexture},
+            {"Chair2TopFace_Cube.034",                   leatherTexture},
+            {"Chair1FaceIn_Cube.031",                    leatherTexture},
+            {"Chair2FaceIn_Cube.035",                    leatherTexture},
+            {"Chair2LateralFace1_Cube.036",              chairsTexture},
+            {"Chair1LateralFace2_Cube.037",              chairsTexture},
+            {"Chair1LateralFace2.001_Cube.033",          chairsTexture},
+            {"Chair1LateralFace1_Cube.032",              chairsTexture},
     };
 }
 
