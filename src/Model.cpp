@@ -120,10 +120,6 @@ void Model::processNode(aiNode *node, const aiScene *scene) {
     }
 }
 
-void Model::addMeshColor(const std::string &meshName, glm::vec3 meshColor) {
-    colorMap.insert(std::make_pair(meshName, meshColor));
-}
-
 Mesh Model::processMesh(aiMesh *mesh) {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -171,7 +167,6 @@ Mesh Model::processMesh(aiMesh *mesh) {
 
     auto texID = textureMap.find(meshName);
     if (texID == textureMap.end()) {
-//        std::cout << "Texture bound to mesh " << meshName << '\t' << this->textureID << std::endl;
         meshTexID = this->textureID;
     }
     else {

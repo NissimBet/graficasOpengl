@@ -63,13 +63,6 @@ public:
     void handleEvent(const SDL_Event &event) override;
 
     /**
-     * Add a color to a mesh (name)
-     * @param meshName name of the mesh to add a color to
-     * @param color value of the color (r,g,b) to set the mesh to
-     */
-    void addMeshColor(const std::string &meshName, glm::vec3 color);
-
-    /**
      * translate the vector a distance directed by the vector
      * @param translationVector vector containing the values of the movement
      */

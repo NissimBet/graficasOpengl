@@ -120,10 +120,10 @@ int main(int argc, char *argv[]) {
     //
 
     // obj files
-    const std::string objCabin = "cabin.obj";
-    const std::string objCableway = "cableway.obj";
-    const std::string objSled = "sled.obj";
-    const std::string objTree = "tree.obj";
+    const std::string objCabin = "objects/cabin.obj";
+    const std::string objCableway = "objects/cableway.obj";
+    const std::string objSled = "objects/sled.obj";
+    const std::string objTree = "objects/tree.obj";
 
     // create shader
     Shader shader("shaders/vertexShader.glsl", "shaders/fragmentShader.glsl");
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
     std::array<Model, 7> objects = {
             Model(objCabin, glm::vec3(0.8f), glm::vec3(0.76f, 0.6f, 0.42f), wallTexture, cabinTextures),
             Model(objCableway, glm::vec3(0.25f), glm::vec3(0.75f, 0.75f, 0.75f), metalTexture, cablewayTextures),
-            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f), metalTexture, sledTextures),
+            Model(objSled, glm::vec3(0.45f), glm::vec3(0.76f, 0.6f, 0.42f), darkWoodTexture, sledTextures),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen, leafTexture),
             Model(objTree, glm::vec3(0.75f, 1.0f, 0.75f), leafGreen, leafTexture),
             Model(objTree, glm::vec3(0.5f, 0.75f, 0.5f), leafGreen, leafTexture),
